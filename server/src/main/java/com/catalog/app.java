@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Slf4j
 public class app
 {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         SpringApplication.run(app.class, args);
         log.info("FzuCreatureCatalog Server Started");
     }
