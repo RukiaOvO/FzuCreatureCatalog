@@ -1,5 +1,5 @@
 # FzuCreatureCatalog
-The backend of app "FzuCreatureCatalog"
+The backend of app "FzuCreatureCatalog" which base on Java.
 
 ### 项目结构
 - common: 存放各类静态常量、工具类函数、自定义变量
