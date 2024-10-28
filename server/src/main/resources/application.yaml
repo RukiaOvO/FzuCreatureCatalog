@@ -11,15 +11,15 @@ spring:
     allow-circular-references: true
   datasource:
     druid:
-      driver-class-name: ${sky.datasource.driver-class-name}
-      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-      username: ${sky.datasource.username}
-      password: ${sky.datasource.password}
+      driver-class-name: ${catalog.datasource.driver-class-name}
+      url: jdbc:mysql://${catalog.datasource.host}:${catalog.datasource.port}/${catalog.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${catalog.datasource.username}
+      password: ${catalog.datasource.password}
   redis:
-    host: ${sky.redis.host}
-    port: ${sky.redis.port}
-    password: ${sky.redis.password}
-    database: ${sky.redis.database}
+    host: ${catalog.redis.host}
+    port: ${catalog.redis.port}
+    password: ${catalog.redis.password}
+    database: ${catalog.redis.database}
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -35,17 +35,14 @@ logging:
         service: info
         controller: info
 
-sky:
+catalog:
   jwt:
-    # 设置jwt签名加密时使用的秘钥
-    admin-secret-key: itcast
-    # 设置jwt过期时间
+    admin-secret-key: FzuCreature
     admin-ttl: 72000000
-    # 设置前端传递过来的令牌名称
     admin-token-name: token
-
     user-secret-key: FzuCatalog
-
     user-ttl: 72000000
-
     user-token-name: authentication
+  wechat:
+    appid: ${catalog.wechat.appid}
+    secret: ${catalog.wechat.secret}

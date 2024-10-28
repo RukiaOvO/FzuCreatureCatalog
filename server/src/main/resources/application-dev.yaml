@@ -1,4 +1,4 @@
-sky:
+catalog:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     host: localhost
@@ -11,4 +11,7 @@ sky:
     port: 6379
     password: root
     database: 5
+  wechat:
+    secret: 123
+    appid: 123
 
