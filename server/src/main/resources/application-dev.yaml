@@ -12,6 +12,6 @@ catalog:
     password: root
     database: 5
   wechat:
-    secret: 123
-    appid: 123
+    secret: 1e0cc1d9e95a95ef871d499a7af05ab5
+    appid: wx60f55ad40a599ffb
 
