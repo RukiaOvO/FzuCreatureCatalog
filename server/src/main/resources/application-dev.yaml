@@ -6,12 +6,14 @@ catalog:
     database: fzuCatalog
     username: root
     password: root
+    schema: 111
+    data: 111
   redis:
     host: localhost
     port: 6379
     password: root
     database: 5
   wechat:
-    secret: 1e0cc1d9e95a95ef871d499a7af05ab5
-    appid: wx60f55ad40a599ffb
+    secret: 123
+    appid: 123
 

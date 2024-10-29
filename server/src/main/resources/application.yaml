@@ -15,6 +15,8 @@ spring:
       url: jdbc:mysql://${catalog.datasource.host}:${catalog.datasource.port}/${catalog.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: ${catalog.datasource.username}
       password: ${catalog.datasource.password}
+      schema-adr: ${catalog.datasource.schema}
+      data-adr: ${catalog.datasource.data}
   redis:
     host: ${catalog.redis.host}
     port: ${catalog.redis.port}
