@@ -45,6 +45,12 @@ catalog:
     user-secret-key: FzuCatalog
     user-ttl: 72000000
     user-token-name: authentication
+  async:
+    core-pool-size: 100
+    max-pool-size: 100
+    queue-capacity: 500
+    keep-alive-seconds: 10
+    thread-name-prefix: Catalog-Thread
   wechat:
     appid: ${catalog.wechat.appid}
     secret: ${catalog.wechat.secret}
