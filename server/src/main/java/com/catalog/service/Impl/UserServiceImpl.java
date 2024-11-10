@@ -22,7 +22,6 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService
 {
-    public static final String WX_LOGIN_URL = "https://api.weixin.qq.com/sns/jscode2session";
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -60,7 +59,7 @@ public class UserServiceImpl implements UserService
         map.put("js_code", code);
         map.put("grant_type", "authorization_code");
 
-        String json = HttpClientUtil.doGet(WX_LOGIN_URL, map);
+        String json = HttpClientUtil.doGet(weChatProperties.getLoginUrl(), map, null);
         JSONObject jsonObject = JSON.parseObject(json);
         return jsonObject.getString("openid");
     }

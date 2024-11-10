@@ -1,6 +1,7 @@
 package com.catalog.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -8,12 +9,16 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -25,9 +30,8 @@ public class HttpClientUtil
 
     static final  int TIMEOUT_MSEC = 5 * 1000;
 
-    public static String doGet(String url, Map<String,String> paramMap)
+    public static String doGet(String url, Map<String, String> paramMap, Map<String, String> headerMap)
     {
-        // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         String result = "";
@@ -36,33 +40,38 @@ public class HttpClientUtil
         try
         {
             URIBuilder builder = new URIBuilder(url);
-            if(paramMap != null){
-                for (String key : paramMap.keySet()) {
+            if(paramMap != null)
+            {
+                for (String key : paramMap.keySet())
+                {
                     builder.addParameter(key,paramMap.get(key));
                 }
             }
             URI uri = builder.build();
 
+            //创建GET请求
             HttpGet httpGet = new HttpGet(uri);
+            if(headerMap != null)
+            {
+                for(String key : headerMap.keySet())
+                {
+                    httpGet.setHeader(key, headerMap.get(key));
+                }
+            }
+            //发送请求
             response = httpClient.execute(httpGet);
 
+            //判断响应状态
             if(response.getStatusLine().getStatusCode() == 200){
                 result = EntityUtils.toString(response.getEntity(),"UTF-8");
             }
-        }
-        catch (Exception e)
-        {
+        }catch (Exception e){
             e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
+        }finally {
+            try {
                 response.close();
                 httpClient.close();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -70,28 +79,22 @@ public class HttpClientUtil
         return result;
     }
 
-    public static String doPost(String url, Map<String, String> paramMap) throws IOException
+    public static String doPost(String url, HttpEntity entity, Map<String, String> headerMap) throws IOException
     {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
         String resultString = "";
-
         try
         {
             HttpPost httpPost = new HttpPost(url);
-
-            if (paramMap != null)
+            if(headerMap != null)
             {
-                List<NameValuePair> paramList = new ArrayList();
-                for (Map.Entry<String, String> param : paramMap.entrySet())
+                for(String key : headerMap.keySet())
                 {
-                    paramList.add(new BasicNameValuePair(param.getKey(), param.getValue()));
+                    httpPost.setHeader(key, headerMap.get(key));
                 }
-                // 模拟表单
-                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList);
-                httpPost.setEntity(entity);
             }
-
+            httpPost.setEntity(entity);
             httpPost.setConfig(builderRequestConfig());
             response = httpClient.execute(httpPost);
 
@@ -108,51 +111,6 @@ public class HttpClientUtil
                 response.close();
             }
             catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        return resultString;
-    }
-
-    public static String doPost4Json(String url, Map<String, String> paramMap) throws IOException
-    {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        CloseableHttpResponse response = null;
-        String resultString = "";
-
-        try
-        {
-            HttpPost httpPost = new HttpPost(url);
-
-            if (paramMap != null)
-            {
-                //构造json格式数据
-                JSONObject jsonObject = new JSONObject();
-                for (Map.Entry<String, String> param : paramMap.entrySet())
-                {
-                    jsonObject.put(param.getKey(),param.getValue());
-                }
-                StringEntity entity = new StringEntity(jsonObject.toString(),"utf-8");
-                entity.setContentEncoding("utf-8");
-                entity.setContentType("application/json");
-                httpPost.setEntity(entity);
-            }
-            httpPost.setConfig(builderRequestConfig());
-            response = httpClient.execute(httpPost);
-            resultString = EntityUtils.toString(response.getEntity(), "UTF-8");
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            try
-            {
-                response.close();
-            } catch (IOException e)
             {
                 e.printStackTrace();
             }

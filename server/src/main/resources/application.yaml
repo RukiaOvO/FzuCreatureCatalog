@@ -54,3 +54,8 @@ catalog:
   wechat:
     appid: ${catalog.wechat.appid}
     secret: ${catalog.wechat.secret}
+    login-url: ${catalog.wechat.login-url}
+  img:
+    url: ${catalog.img.url}
+    email: ${catalog.img.email}
+    password: ${catalog.img.password}
