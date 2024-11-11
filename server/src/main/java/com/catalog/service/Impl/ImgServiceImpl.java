@@ -10,9 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -48,7 +46,9 @@ public class ImgServiceImpl implements ImgService
             JsonNode jsonNode = objectMapper.readTree(result);
             if(jsonNode.get("data").get("token") != null)
             {
-                return jsonNode.get("data").get("token").asText();
+                result = jsonNode.get("data").get("token").asText();
+                log.info("获取图床Token:{}", result);
+                return result;
             }
             throw new RuntimeException(ImgConstant.GET_TOKEN_ERROR);
         }
@@ -80,7 +80,9 @@ public class ImgServiceImpl implements ImgService
             }
             else
             {
-                return jsonNode.get("data").get("links").get("url").asText();
+                result = jsonNode.get("data").get("links").get("url").asText();
+                log.info("获取图片Url:{}", result);
+                return result;
             }
         }
         catch (IOException e)
@@ -91,7 +93,16 @@ public class ImgServiceImpl implements ImgService
     }
 
     @Override
-    public String deleteImgInBed(String key) {
-        return "";
+    public void deleteImgInBed(String key)
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(getImgBedToken());
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<String> result = new RestTemplate().exchange(imgBedProperties.getUrl() + ImgConstant.DELETE_IMG_API + key, HttpMethod.DELETE, entity, String.class);
+        if(!(result.getStatusCode() == HttpStatus.OK))
+        {
+            throw new IllegalStateException(ImgConstant.DELETE_IMG_ERROR);
+        }
+        log.info("删除图片:{} 成功", key);
     }
 }

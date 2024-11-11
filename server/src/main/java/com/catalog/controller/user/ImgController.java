@@ -28,10 +28,8 @@ public class ImgController
 
     @GetMapping("/test")
     @ApiOperation("test")
-    public Result<String> test()
+    public void test()
     {
-        File file = new File("C:\\Users\\wws14\\Desktop\\1.jpg");
-        String result = imgService.uploadImgToBed(file);
-        return Result.success(result);
+        imgService.deleteImgInBed("ZGIRa1");
     }
 }
