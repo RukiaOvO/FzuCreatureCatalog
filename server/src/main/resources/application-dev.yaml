@@ -3,21 +3,21 @@ catalog:
     driver-class-name: com.mysql.cj.jdbc.Driver
     host: localhost
     port: 3306
-    database: fzuCatalog
+    database: its_catalog
     username: root
     password: root
     schema: 111
-    data: 111
+    data: db/its_catalog.sql
   redis:
     host: localhost
     port: 6379
     password: root
     database: 5
   wechat:
-    secret:
-    appid:
+    secret: 111
+    appid: 111
     login-url: https://api.weixin.qq.com/sns/jscode2session
   img:
-    url: https://mlws2s3e.cfornas.casa:8443/api/v1
-    email:
-    password:
+    url: 111
+    email: 111
+    password: 111

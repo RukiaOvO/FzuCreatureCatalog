@@ -41,7 +41,7 @@ public class MysqlConfiguration
 
         try (Connection connection = DriverManager.getConnection(mysqlProperties.getUrl(), mysqlProperties.getUsername(), mysqlProperties.getPassword()))
         {
-            runSQLScript(mysqlProperties.getSchemaAdr(), true, connection);
+//            runSQLScript(mysqlProperties.getSchemaAdr(), true, connection);
             runSQLScript(mysqlProperties.getDataAdr(), true, connection);
             log.info("初始化数据库完成！");
         }
