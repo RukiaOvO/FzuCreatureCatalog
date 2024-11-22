@@ -20,7 +20,7 @@ public class UserController
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ApiOperation("微信登入")
     public Result<UserLoginVO> login(@RequestBody UserLoginDTO userLoginDTO)
     {
