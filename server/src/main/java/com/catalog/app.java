@@ -13,9 +13,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class app
 {
 
-    public static void main(String[] args)
+//    public static void main(String[] args)
+//    {
+//        SpringApplication.run(app.class, args);
+//        log.info("FzuCreatureCatalog Server Started");
+//    }
+    public static void main()
     {
-        SpringApplication.run(app.class, args);
-        log.info("FzuCreatureCatalog Server Started");
+
     }
 }
