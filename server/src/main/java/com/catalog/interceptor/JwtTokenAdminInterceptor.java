@@ -3,6 +3,7 @@ package com.catalog.interceptor;
 import com.catalog.constant.JwtClaimsConstant;
 import com.catalog.context.BaseContext;
 import com.catalog.properties.JwtProperties;
+import com.catalog.properties.WeChatProperties;
 import com.catalog.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor
 {
     @Autowired
     private JwtProperties jwtProperties;
+    @Autowired
+    private WeChatProperties weChatProperties;
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
     {
@@ -30,16 +33,16 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor
 
         String token = request.getHeader(jwtProperties.getAdminTokenName());
 
-        try
+        log.info("管理员jwt校验:{}", token);
+        Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
+        token = claims.get(JwtClaimsConstant.ADMIN_ID).toString();
+        log.info("secret校验：{}", token);
+
+        if(token.equals(weChatProperties.getSecret()))
         {
-            log.info("管理员jwt校验:{}", token);
-            Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
-            Long empId = Long.valueOf(claims.get(JwtClaimsConstant.ADMIN_ID).toString());
-            log.info("当前管理员id：{}", empId);
-            BaseContext.setCurrentId(empId);
             return true;
         }
-        catch (Exception ex)
+        else
         {
             response.setStatus(401);
             return false;

@@ -39,6 +39,8 @@ logging:
 
 catalog:
   jwt:
+    admin-name: admin
+    admin-password: root
     admin-secret-key: FzuCreature
     admin-ttl: 72000000
     admin-token-name: token
