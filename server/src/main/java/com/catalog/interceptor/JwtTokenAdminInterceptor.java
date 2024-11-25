@@ -1,7 +1,6 @@
 package com.catalog.interceptor;
 
 import com.catalog.constant.JwtClaimsConstant;
-import com.catalog.context.BaseContext;
 import com.catalog.properties.JwtProperties;
 import com.catalog.properties.WeChatProperties;
 import com.catalog.utils.JwtUtil;
@@ -35,7 +34,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor
 
         log.info("管理员jwt校验:{}", token);
         Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
-        token = claims.get(JwtClaimsConstant.ADMIN_ID).toString();
+        token = claims.get(JwtClaimsConstant.APP_SECRET).toString();
         log.info("secret校验：{}", token);
 
         if(token.equals(weChatProperties.getSecret()))

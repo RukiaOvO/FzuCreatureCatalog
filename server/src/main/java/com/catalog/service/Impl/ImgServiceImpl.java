@@ -1,10 +1,8 @@
 package com.catalog.service.Impl;
 
 import com.catalog.constant.ImgConstant;
-import com.catalog.entity.Img;
 import com.catalog.properties.ImgBedProperties;
 import com.catalog.service.ImgService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
