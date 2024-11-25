@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService
         if(user == null)
         {
             user = User.builder()
-                    .openid(openid)
-                    .createTime(LocalDateTime.now())
+                    .open_id(openid)
+                    .create_time(LocalDateTime.now())
                     .build();
             userMapper.insert(user);
         }

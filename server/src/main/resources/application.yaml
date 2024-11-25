@@ -41,10 +41,10 @@ catalog:
   jwt:
     admin-name: admin
     admin-password: root
-    admin-secret-key: FzuCreature
+    admin-secret-key: ItsCatalog
     admin-ttl: 72000000
     admin-token-name: token
-    user-secret-key: FzuCatalog
+    user-secret-key: ItsCatalog
     user-ttl: 72000000
     user-token-name: authentication
   async:

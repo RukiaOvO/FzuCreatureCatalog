@@ -12,15 +12,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable
+public class Msg implements Serializable
 {
-    private int id;
-
-    private int img_id;
-
-    private String open_id;
-
-    private String nickname;;
-
+    private int msg_id;
+    private String content;
     private LocalDateTime create_time;
+    private int status;
 }
