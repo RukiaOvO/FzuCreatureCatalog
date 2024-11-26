@@ -13,4 +13,7 @@ public interface CardMapper
     List<Integer> getCardIdsByUserId(int id);
 
     List<Card> getCardsByIds(List<Integer> ids);
+
+    @Select("select * from card where id = #{id}")
+    Card getCardById(int id);
 }
