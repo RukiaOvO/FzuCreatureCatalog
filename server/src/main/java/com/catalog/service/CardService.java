@@ -8,4 +8,6 @@ public interface CardService
 {
     Card getCardById(int id);
 
+    List<Card> getCardsByKeyWord(String keyWord);
+
 }

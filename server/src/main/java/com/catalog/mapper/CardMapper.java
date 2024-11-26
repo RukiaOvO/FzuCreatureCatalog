@@ -14,6 +14,8 @@ public interface CardMapper
 
     List<Card> getCardsByIds(List<Integer> ids);
 
+    List<Card> getCardsByKeyWord(String keyWord);
+
     @Select("select * from card where id = #{id}")
     Card getCardById(int id);
 }

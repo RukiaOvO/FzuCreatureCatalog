@@ -7,4 +7,21 @@
             #{id}
         </foreach>
     </select>
+    <select id="getCardsByKeyWord" resultType="com.catalog.entity.Card">
+        select * from card
+        <where>
+            <if test="animal_name != null and animal_name != ''">
+                or animal_name like concat('%',#{keyWord},'%')
+            </if>
+            <if test="species != null and species != ''">
+                or species like concat('%',#{keyWord},'%')
+            </if>
+            <if test="personality != null and personality != ''">
+                or personality like concat('%',#{keyWord},'%')
+            </if>
+            <if test="introduction != null and introduction != ''">
+                or introduction like concat('%',#{keyWord},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

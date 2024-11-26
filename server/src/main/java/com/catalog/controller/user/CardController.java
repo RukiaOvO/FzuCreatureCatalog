@@ -38,6 +38,13 @@ public class CardController
         Card card = cardService.getCardById(cardId);
         return Result.success(card);
     }
+    @GetMapping("/cards")
+    @ApiOperation("根据关键词获取卡片")
+    public Result<List<Card>> getCardsByKeyWord(@RequestParam String key_word)
+    {
+        List<Card> cards = cardService.getCardsByKeyWord(key_word);
+        return Result.success(cards);
+    }
     @GetMapping("/my_card")
     @ApiOperation("获取用户自己的卡片")
     public Result<List<Card>> getUserOwnCard()

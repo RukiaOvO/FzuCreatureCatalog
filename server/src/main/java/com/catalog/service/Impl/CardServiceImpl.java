@@ -22,4 +22,10 @@ public class CardServiceImpl implements CardService
         return cardMapper.getCardById(id);
     }
 
+    @Override
+    public List<Card> getCardsByKeyWord(String keyWord)
+    {
+        return cardMapper.getCardsByKeyWord(keyWord);
+    }
+
 }
