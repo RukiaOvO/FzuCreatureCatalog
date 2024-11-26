@@ -3,6 +3,7 @@ package com.catalog.service.Impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.catalog.entity.Card;
+import com.catalog.entity.Msg;
 import com.catalog.exception.LoginFailedException;
 import com.catalog.mapper.*;
 import com.catalog.properties.WeChatProperties;
@@ -16,6 +17,8 @@ import com.catalog.utils.JwtUtil;
 import com.catalog.constant.JwtClaimsConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +29,8 @@ public class UserServiceImpl implements UserService
 {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private MsgMapper msgMapper;
     @Autowired
     private FollowMapper followMapper;
     @Autowired
@@ -108,6 +113,7 @@ public class UserServiceImpl implements UserService
         return imgMapper.getImgNumByUserId(id);
     }
 
+    @Transactional
     @Override
     public List<Card> getFollowCardsById(int id)
     {
@@ -115,10 +121,27 @@ public class UserServiceImpl implements UserService
         return cardMapper.getCardsByIds(cardIds);
     }
 
+    @Transactional
     @Override
     public List<Card> getUploadCardsById(int id)
     {
         List<Integer> cardIds = uploadMapper.getCardIdsByUserId(id);
         return cardMapper.getCardsByIds(cardIds);
+    }
+
+    @Transactional
+    @Override
+    public List<Msg> getUserMsgById(int id)
+    {
+        List<Integer> msgIds = userMapper.getMsgIdsById(id);
+        return msgMapper.getMsgByIds(msgIds);
+    }
+
+    @Transactional
+    @Override
+    public void deleteUserMsgByMsgId(int id)
+    {
+        userMapper.deleteMsgByMsgId(id);
+        msgMapper.deleteMsgById(id);
     }
 }

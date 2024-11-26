@@ -2,6 +2,7 @@ package com.catalog.service;
 
 import com.catalog.dto.UserLoginDTO;
 import com.catalog.entity.Card;
+import com.catalog.entity.Msg;
 import com.catalog.entity.User;
 import com.catalog.vo.UserInfoVO;
 
@@ -24,4 +25,8 @@ public interface UserService
     List<Card> getFollowCardsById(int id);
 
     List<Card> getUploadCardsById(int id);
+
+    List<Msg> getUserMsgById(int id);
+
+    void deleteUserMsgByMsgId(int id);
 }
