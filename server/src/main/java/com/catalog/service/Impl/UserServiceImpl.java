@@ -29,6 +29,8 @@ public class UserServiceImpl implements UserService
     @Autowired
     private FollowMapper followMapper;
     @Autowired
+    private UploadMapper uploadMapper;
+    @Autowired
     private LikeMapper likeMapper;
     @Autowired
     private ImgMapper imgMapper;
@@ -110,6 +112,13 @@ public class UserServiceImpl implements UserService
     public List<Card> getFollowCardsById(int id)
     {
         List<Integer> cardIds = followMapper.getCardIdsByUserId(id);
+        return cardMapper.getCardsByIds(cardIds);
+    }
+
+    @Override
+    public List<Card> getUploadCardsById(int id)
+    {
+        List<Integer> cardIds = uploadMapper.getCardIdsByUserId(id);
         return cardMapper.getCardsByIds(cardIds);
     }
 }

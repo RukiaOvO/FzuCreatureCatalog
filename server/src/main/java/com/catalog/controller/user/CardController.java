@@ -1,9 +1,11 @@
 package com.catalog.controller.user;
 
+import com.catalog.context.BaseContext;
 import com.catalog.dto.UserHomeCardDTO;
 import com.catalog.entity.Card;
 import com.catalog.result.Result;
 import com.catalog.service.CardService;
+import com.catalog.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,8 @@ public class CardController
 {
     @Autowired
     private CardService cardService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/home")
     @ApiOperation("首页获取卡片")
@@ -38,6 +42,8 @@ public class CardController
     @ApiOperation("获取用户自己的卡片")
     public Result<List<Card>> getUserOwnCard()
     {
-        return Result.success();
+        int userId = BaseContext.getCurrentId();
+        List<Card> cards = userService.getUploadCardsById(userId);
+        return Result.success(cards);
     }
 }
