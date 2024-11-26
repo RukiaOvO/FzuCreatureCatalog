@@ -3,6 +3,7 @@ package com.catalog.controller.user;
 import com.catalog.constant.MessageConstant;
 import com.catalog.context.BaseContext;
 import com.catalog.entity.Msg;
+import com.catalog.mapper.MsgMapper;
 import com.catalog.result.Result;
 import com.catalog.service.UserService;
 import io.swagger.annotations.Api;
@@ -21,6 +22,8 @@ public class MsgController
 {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MsgMapper msgMapper;
 
     @GetMapping("/notice")
     @ApiOperation("获取消息通知")
@@ -41,6 +44,13 @@ public class MsgController
     @ApiOperation("阅读所有消息")
     public Result<String> readAllMsg()
     {
+        int userId = BaseContext.getCurrentId();
+        List<Integer> msgIds = userService.getMsgIdsById(userId);
+        if(msgIds.isEmpty())
+        {
+            return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
+        }
+        msgMapper.updateMsgByIds(msgIds);
         return Result.success();
     }
 

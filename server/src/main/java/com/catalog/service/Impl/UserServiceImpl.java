@@ -144,4 +144,10 @@ public class UserServiceImpl implements UserService
         userMapper.deleteMsgByMsgId(id);
         msgMapper.deleteMsgById(id);
     }
+
+    @Override
+    public List<Integer> getMsgIdsById(int id)
+    {
+        return userMapper.getMsgIdsById(id);
+    }
 }

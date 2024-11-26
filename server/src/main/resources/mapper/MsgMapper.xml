@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.catalog.mapper.MsgMapper">
+    <update id="updateMsgByIds" parameterType="java.util.List">
+        <foreach collection="ids" item="id" separator=";" open="(" close=")">
+            UPDATE msg
+            SET
+                status = 1
+            WHERE
+                id = #{id}
+        </foreach>
+    </update>
     <select id="getMsgByIds" resultType="com.catalog.entity.Msg">
         select * from msg where id in
-        <foreach collection="ids" item = "id" separator="," open="(" close=")">
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </select>

@@ -29,4 +29,6 @@ public interface UserService
     List<Msg> getUserMsgById(int id);
 
     void deleteUserMsgByMsgId(int id);
+
+    List<Integer> getMsgIdsById(int id);
 }

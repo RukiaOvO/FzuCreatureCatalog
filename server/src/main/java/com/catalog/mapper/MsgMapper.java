@@ -13,4 +13,6 @@ public interface MsgMapper
 
     @Delete("delete from msg where id = #{id}")
     void deleteMsgById(int id);
+
+    void updateMsgByIds(List<Integer> ids);
 }
