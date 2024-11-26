@@ -26,4 +26,7 @@ public interface UserMapper
 
     @Delete("delete from user_msg where msg_id = #{id}")
     void deleteMsgByMsgId(int id);
+
+    @Select("select * from user_msg where user_id = #{id}")
+    int getMsgIdById(int id);
 }

@@ -5,6 +5,7 @@ import com.catalog.entity.Card;
 import com.catalog.entity.Msg;
 import com.catalog.entity.User;
 import com.catalog.vo.UserInfoVO;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -31,4 +32,6 @@ public interface UserService
     void deleteUserMsgByMsgId(int id);
 
     List<Integer> getMsgIdsById(int id);
+
+    Integer getMsgIdById(int id);
 }

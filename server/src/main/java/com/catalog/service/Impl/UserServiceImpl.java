@@ -150,4 +150,10 @@ public class UserServiceImpl implements UserService
     {
         return userMapper.getMsgIdsById(id);
     }
+
+    @Override
+    public Integer getMsgIdById(int id)
+    {
+        return userMapper.getMsgIdById(id);
+    }
 }

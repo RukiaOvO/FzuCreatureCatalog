@@ -5,6 +5,7 @@ import com.catalog.context.BaseContext;
 import com.catalog.entity.Msg;
 import com.catalog.mapper.MsgMapper;
 import com.catalog.result.Result;
+import com.catalog.service.MsgService;
 import com.catalog.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -23,7 +25,7 @@ public class MsgController
     @Autowired
     private UserService userService;
     @Autowired
-    private MsgMapper msgMapper;
+    private MsgService msgService;
 
     @GetMapping("/notice")
     @ApiOperation("获取消息通知")
@@ -35,8 +37,15 @@ public class MsgController
     }
     @PutMapping("/read_msg")
     @ApiOperation("阅读单个消息")
-    public Result<String> readOneMsg()
+    public Result<String> readOneMsg(@RequestParam int msg_id)
     {
+        int userId = BaseContext.getCurrentId();
+        Integer msgId = userService.getMsgIdById(userId);
+        if(msgId == null)
+        {
+            return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
+        }
+        msgService.updateMsgByIds(List.of(msgId));
         return Result.success();
     }
 
@@ -50,7 +59,7 @@ public class MsgController
         {
             return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
         }
-        msgMapper.updateMsgByIds(msgIds);
+        msgService.updateMsgByIds(msgIds);
         return Result.success();
     }
 
@@ -58,7 +67,7 @@ public class MsgController
     @ApiOperation("根据msg_id删除消息")
     public Result<String> deleteMsgById(@RequestParam int msgId)
     {
-        Boolean hasMsg = false;
+        boolean hasMsg = false;
         int userId = BaseContext.getCurrentId();
         List<Msg> msgList = userService.getUserMsgById(userId);
         for(Msg msg : msgList)
