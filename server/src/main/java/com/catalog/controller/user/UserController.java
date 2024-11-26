@@ -1,8 +1,11 @@
 package com.catalog.controller.user;
 
+import com.catalog.context.BaseContext;
 import com.catalog.dto.UserHomeCardDTO;
 import com.catalog.entity.Card;
+import com.catalog.entity.Img;
 import com.catalog.entity.Msg;
+import com.catalog.service.ImgService;
 import com.catalog.service.UserService;
 import com.catalog.dto.UserLoginDTO;
 import com.catalog.entity.User;
@@ -25,6 +28,8 @@ public class UserController
 {
     @Autowired
     private UserService userService;
+    @Autowired
+    private ImgService imgService;
 
     @PostMapping("/login")
     @ApiOperation("微信登入")
@@ -58,7 +63,18 @@ public class UserController
     @ApiOperation("获取用户个人信息")
     public Result<UserInfoVO> getUserOwnInfo()
     {
-        return Result.success();
+        int userId = BaseContext.getCurrentId();
+        User user = userService.getUserById(userId);
+        Img userImage = imgService.getImageById(user.getImg_id());
+
+        UserInfoVO userInfo = new UserInfoVO();
+        userInfo.setNickname(user.getNickname());
+        userInfo.setImg_url(userImage.getUrl());
+        userInfo.setFollow_num(userService.getUserFollowNumById(userId));
+        userInfo.setImg_num(userService.getUserImgNumById(userId));
+        userInfo.setLike_num(userService.getUserLikeNumById(userId));
+
+        return Result.success(userInfo);
     }
     @PostMapping("/info")
     @ApiOperation("上传用户个人信息")

@@ -1,6 +1,8 @@
 package com.catalog.service.Impl;
 
 import com.catalog.constant.ImgConstant;
+import com.catalog.entity.Img;
+import com.catalog.mapper.ImgMapper;
 import com.catalog.properties.ImgBedProperties;
 import com.catalog.service.ImgService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,6 +27,8 @@ public class ImgServiceImpl implements ImgService
 {
     @Autowired
     private ImgBedProperties imgBedProperties;
+    @Autowired
+    private ImgMapper imgMapper;
 
     @Override
     public String getImgBedToken()
@@ -102,5 +106,11 @@ public class ImgServiceImpl implements ImgService
             throw new IllegalStateException(ImgConstant.DELETE_IMG_ERROR);
         }
         log.info("删除图片:{} 成功", key);
+    }
+
+    @Override
+    public Img getImageById(int imgId)
+    {
+        return imgMapper.getImageById(imgId);
     }
 }

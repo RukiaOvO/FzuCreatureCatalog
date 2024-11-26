@@ -1,7 +1,10 @@
 package com.catalog.entity;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public class Img
 {
     private int id;

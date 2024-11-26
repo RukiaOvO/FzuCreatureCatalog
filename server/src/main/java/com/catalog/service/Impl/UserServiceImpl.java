@@ -3,6 +3,9 @@ package com.catalog.service.Impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.catalog.exception.LoginFailedException;
+import com.catalog.mapper.FollowMapper;
+import com.catalog.mapper.ImgMapper;
+import com.catalog.mapper.LikeMapper;
 import com.catalog.mapper.UserMapper;
 import com.catalog.properties.WeChatProperties;
 import com.catalog.service.UserService;
@@ -25,6 +28,12 @@ public class UserServiceImpl implements UserService
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private FollowMapper followMapper;
+    @Autowired
+    private LikeMapper likeMapper;
+    @Autowired
+    private ImgMapper imgMapper;
+    @Autowired
     private JwtProperties jwtProperties;
     @Autowired
     private WeChatProperties weChatProperties;
@@ -38,7 +47,7 @@ public class UserServiceImpl implements UserService
             throw new LoginFailedException(MessageConstant.LOGIN_FAILED);
         }
 
-        User user = userMapper.getByOpenId(openid);
+        User user = userMapper.getUserByOpenId(openid);
         if(user == null)
         {
             user = User.builder()
@@ -70,5 +79,29 @@ public class UserServiceImpl implements UserService
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, user.getId());
         return JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
+    }
+
+    @Override
+    public User getUserById(int id)
+    {
+        return userMapper.getUserById(id);
+    }
+
+    @Override
+    public int getUserFollowNumById(int id)
+    {
+        return followMapper.getFollowNumByUserId(id);
+    }
+
+    @Override
+    public int getUserLikeNumById(int id)
+    {
+        return likeMapper.getLikeNumByUserId(id);
+    }
+
+    @Override
+    public int getUserImgNumById(int id)
+    {
+        return imgMapper.getImgNumByUserId(id);
     }
 }
