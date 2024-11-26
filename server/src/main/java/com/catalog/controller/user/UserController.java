@@ -5,6 +5,7 @@ import com.catalog.dto.UserHomeCardDTO;
 import com.catalog.entity.Card;
 import com.catalog.entity.Img;
 import com.catalog.entity.Msg;
+import com.catalog.mapper.FollowMapper;
 import com.catalog.service.ImgService;
 import com.catalog.service.UserService;
 import com.catalog.dto.UserLoginDTO;
@@ -30,6 +31,8 @@ public class UserController
     private UserService userService;
     @Autowired
     private ImgService imgService;
+    @Autowired
+    private FollowMapper followMapper;
 
     @PostMapping("/login")
     @ApiOperation("微信登入")
@@ -57,7 +60,9 @@ public class UserController
     @ApiOperation("获取关注列表")
     public Result<List<Card>> getFollowCard()
     {
-        return Result.success();
+        int userId = BaseContext.getCurrentId();
+        List<Card> cards = userService.getFollowCardsById(userId);
+        return Result.success(cards);
     }
     @GetMapping("/info")
     @ApiOperation("获取用户个人信息")

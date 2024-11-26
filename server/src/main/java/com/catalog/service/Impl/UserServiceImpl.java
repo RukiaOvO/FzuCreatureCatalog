@@ -2,11 +2,9 @@ package com.catalog.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.catalog.entity.Card;
 import com.catalog.exception.LoginFailedException;
-import com.catalog.mapper.FollowMapper;
-import com.catalog.mapper.ImgMapper;
-import com.catalog.mapper.LikeMapper;
-import com.catalog.mapper.UserMapper;
+import com.catalog.mapper.*;
 import com.catalog.properties.WeChatProperties;
 import com.catalog.service.UserService;
 import com.catalog.properties.JwtProperties;
@@ -20,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -37,6 +36,8 @@ public class UserServiceImpl implements UserService
     private JwtProperties jwtProperties;
     @Autowired
     private WeChatProperties weChatProperties;
+    @Autowired
+    private CardMapper cardMapper;
 
     @Override
     public User wxLogin(UserLoginDTO userLoginDTO)
@@ -103,5 +104,12 @@ public class UserServiceImpl implements UserService
     public int getUserImgNumById(int id)
     {
         return imgMapper.getImgNumByUserId(id);
+    }
+
+    @Override
+    public List<Card> getFollowCardsById(int id)
+    {
+        List<Integer> cardIds = followMapper.getCardIdsByUserId(id);
+        return cardMapper.getCardsByIds(cardIds);
     }
 }
