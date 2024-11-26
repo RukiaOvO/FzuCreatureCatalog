@@ -1,7 +1,6 @@
 package com.catalog.service;
 
 import com.catalog.dto.AdminLoginDTO;
-import com.catalog.dto.RejectCardDTO;
 import com.catalog.entity.Card;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public interface AdminService
 
     String getAccessToken();
 
-    void deleteCard(RejectCardDTO rejectCardDTO);
+    void deleteCard(int cardId);
 
     List<Card> showHomeCards();
 }

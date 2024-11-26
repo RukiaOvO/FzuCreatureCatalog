@@ -2,7 +2,6 @@ package com.catalog.service.Impl;
 
 import com.catalog.constant.JwtClaimsConstant;
 import com.catalog.dto.AdminLoginDTO;
-import com.catalog.dto.RejectCardDTO;
 import com.catalog.entity.Card;
 import com.catalog.mapper.AdminMapper;
 import com.catalog.properties.JwtProperties;
@@ -44,9 +43,9 @@ public class AdminServiceImpl implements AdminService
     }
 
     @Override
-    public void deleteCard(RejectCardDTO rejectCardDTO)
+    public void deleteCard(int cardId)
     {
-        adminMapper.deleteCardById(rejectCardDTO.getCardId());
+        adminMapper.deleteCardById(cardId);
     }
 
     @Override

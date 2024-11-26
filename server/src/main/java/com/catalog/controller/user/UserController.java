@@ -9,7 +9,7 @@ import com.catalog.dto.UserLoginDTO;
 import com.catalog.entity.User;
 import com.catalog.result.Result;
 import com.catalog.vo.UserLoginVO;
-import com.catalog.vo.UserVO;
+import com.catalog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -99,7 +99,7 @@ public class UserController
     }
     @GetMapping("/info")
     @ApiOperation("获取用户个人信息")
-    public Result<UserVO> getUserOwnInfo()
+    public Result<UserInfoVO> getUserOwnInfo()
     {
         return Result.success();
     }

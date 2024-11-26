@@ -2,14 +2,12 @@ package com.catalog.controller.admin;
 
 import com.catalog.constant.MessageConstant;
 import com.catalog.dto.AdminLoginDTO;
-import com.catalog.dto.RejectCardDTO;
 import com.catalog.entity.Card;
 import com.catalog.result.Result;
 import com.catalog.service.AdminService;
 import com.catalog.vo.AdminLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -59,9 +57,9 @@ public class AdminController
 
     @DeleteMapping("/reject_card")
     @ApiOperation("删除卡片")
-    public Result<String> deleteRejectCard(@RequestBody RejectCardDTO rejectCardDTO)
+    public Result<String> deleteRejectCard(@RequestParam(name = "card_id") int cardId)
     {
-        adminService.deleteCard(rejectCardDTO);
+        adminService.deleteCard(cardId);
         return Result.success(MessageConstant.DELETE_SUCCESS);
     }
 }
