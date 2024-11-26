@@ -13,13 +13,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class UserInfoVO implements Serializable
 {
-    private String follow_num;
-
-    private String img_num;
-
     private String img_url;
-
-    private String like_num;
-
     private String nickname;
+    private int follow_num;
+    private int img_num;
+    private int like_num;
 }

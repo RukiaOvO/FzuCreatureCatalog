@@ -15,13 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 public class CardVO implements Serializable
 {
-    private long cardid;
-    private String imgurl;
+    private int card_id;
+    private String img_url;
     private List<Img> imgs;
     private String intro;
-    private long isLike;
-    private long isStar;
-    private String likeNum;
+    private int is_like;
+    private int is_star;
+    private int like_num;
     private String location;
-    private String petName;
+    private String pet_name;
 }

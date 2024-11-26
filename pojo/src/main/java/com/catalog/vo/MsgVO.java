@@ -12,8 +12,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class MsgVO implements Serializable
 {
+    private int msg_id;
+    private int is_read;
     private String content;
-    private long is_read;
-    private long msg_id;
     private String upload_time;
 }
