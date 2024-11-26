@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Msg implements Serializable
 {
-    private int msg_id;
+    private int id;
     private String content;
     private LocalDateTime create_time;
     private int status;

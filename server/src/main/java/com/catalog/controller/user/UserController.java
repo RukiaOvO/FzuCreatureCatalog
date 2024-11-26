@@ -61,15 +61,21 @@ public class UserController
     {
         return Result.success();
     }
-    @PutMapping("/read_card")
+    @PutMapping("/read_msg")
     @ApiOperation("阅读单个消息")
     public Result<String> readOneMsg()
     {
         return Result.success();
     }
-    @PutMapping("/read_all_card")
+    @PutMapping("/read_all_msg")
     @ApiOperation("阅读所有消息")
     public Result<String> readAllMsg()
+    {
+        return Result.success();
+    }
+    @DeleteMapping("delete_msg")
+    @ApiOperation("根据msg_id删除消息")
+    public Result<String> deleteMsgById()
     {
         return Result.success();
     }

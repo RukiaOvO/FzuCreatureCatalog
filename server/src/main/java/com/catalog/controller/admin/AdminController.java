@@ -3,6 +3,7 @@ package com.catalog.controller.admin;
 import com.catalog.constant.MessageConstant;
 import com.catalog.dto.AdminLoginDTO;
 import com.catalog.dto.RejectCardDTO;
+import com.catalog.entity.Card;
 import com.catalog.result.Result;
 import com.catalog.service.AdminService;
 import com.catalog.vo.AdminLoginVO;
@@ -12,6 +13,8 @@ import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
@@ -48,10 +51,10 @@ public class AdminController
 
     @GetMapping("/home")
     @ApiOperation("显示主页卡片")
-    public Result<String> showHomeCards()
+    public Result<List<Card>> showHomeCards()
     {
-        adminService.showHomeCards();
-        return Result.success();
+        List<Card> result = adminService.showHomeCards();
+        return Result.success(result);
     }
 
     @DeleteMapping("/reject_card")
@@ -59,6 +62,6 @@ public class AdminController
     public Result<String> deleteRejectCard(@RequestBody RejectCardDTO rejectCardDTO)
     {
         adminService.deleteCard(rejectCardDTO);
-        return Result.success();
+        return Result.success(MessageConstant.DELETE_SUCCESS);
     }
 }
