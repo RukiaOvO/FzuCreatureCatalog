@@ -91,11 +91,12 @@ public class UserController
     }
     @PostMapping(value = "/info", consumes = "multipart/form-data", produces = "application/json")
     @ApiOperation("上传用户个人信息")
-    public Result<String> uploadUserOwnInfo(@RequestParam("nickname") String nickname, @RequestPart("img") MultipartFile img)
+    public Result<String> uploadUserOwnInfo(@RequestParam("nickname") String nickname, @RequestPart("img") MultipartFile imgFile)
     {
         int userId = BaseContext.getCurrentId();
         log.info("User:{} postUserInfo.", userId);
-        File file = FileUtil.MultipartFileToFile(img);
-        return Result.success();
+        File file = FileUtil.MultipartFileToFile(imgFile);
+        Img img = imgService.uploadImgToBed(file);
+        return Result.success(img.getUrl());
     }
 }
