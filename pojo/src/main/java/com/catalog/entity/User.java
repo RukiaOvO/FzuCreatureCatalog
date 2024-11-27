@@ -23,4 +23,6 @@ public class User implements Serializable
     private String nickname;;
 
     private LocalDateTime create_time;
+
+    private LocalDateTime update_time;
 }
