@@ -5,6 +5,8 @@ import com.catalog.dto.AdminLoginDTO;
 import com.catalog.entity.Card;
 import com.catalog.result.Result;
 import com.catalog.service.AdminService;
+import com.catalog.service.CardService;
+import com.catalog.service.Impl.CardServiceImpl;
 import com.catalog.vo.AdminLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +24,8 @@ public class AdminController
 {
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private CardService cardService;
 
     @PostMapping("/login")
     @ApiOperation("管理员登入")
@@ -59,7 +63,16 @@ public class AdminController
     @ApiOperation("删除卡片")
     public Result<String> deleteRejectCard(@RequestParam(name = "card_id") int cardId)
     {
+        log.info("管理员拒绝通过卡片:{}",cardId);
         adminService.deleteCard(cardId);
         return Result.success(MessageConstant.DELETE_SUCCESS);
+    }
+    @PutMapping("/accept_card")
+    @ApiOperation("通过卡片审核")
+    public Result<String> acceptCard(@RequestParam(name = "card_id") int cardId)
+    {
+        log.info("管理员允许通过卡片:{}", cardId);
+        cardService.acceptCardById(cardId);
+        return Result.success(MessageConstant.UPDATE_SUCCESS);
     }
 }

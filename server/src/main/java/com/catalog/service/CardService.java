@@ -10,4 +10,6 @@ public interface CardService
 
     List<Card> getCardsByKeyWord(String keyWord);
 
+    void acceptCardById(int cardId);
+
 }

@@ -28,4 +28,10 @@ public class CardServiceImpl implements CardService
         return cardMapper.getCardsByKeyWord(keyWord);
     }
 
+    @Override
+    public void acceptCardById(int cardId)
+    {
+        cardMapper.acceptCardById(cardId);
+    }
+
 }
