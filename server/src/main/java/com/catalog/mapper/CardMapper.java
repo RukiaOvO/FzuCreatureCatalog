@@ -3,6 +3,7 @@ package com.catalog.mapper;
 import com.catalog.annotation.AutoFill;
 import com.catalog.entity.Card;
 import com.catalog.enumeration.OperationType;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -17,6 +18,8 @@ public interface CardMapper
 
     List<Card> getCardsByIds(List<Integer> ids);
 
+    List<Card> getAcceptedCardsByIds(List<Integer> ids);
+
     List<Card> getCardsByKeyWord(String keyWord);
 
     @Select("select * from card where id = #{id}")
@@ -25,4 +28,10 @@ public interface CardMapper
     @AutoFill(OperationType.UPDATE)
     @Update("update card set status = 1 where id = #{id}")
     void acceptCardById(int id);
+
+    @Delete("delete from card where id = #{id}")
+    void deleteCardById(int id);
+
+    @Select("select * from card")
+    List<Card> getAllCards();
 }

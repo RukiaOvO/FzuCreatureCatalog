@@ -3,7 +3,7 @@ package com.catalog.service.Impl;
 import com.catalog.constant.JwtClaimsConstant;
 import com.catalog.dto.AdminLoginDTO;
 import com.catalog.entity.Card;
-import com.catalog.mapper.AdminMapper;
+import com.catalog.mapper.CardMapper;
 import com.catalog.properties.JwtProperties;
 import com.catalog.properties.WeChatProperties;
 import com.catalog.service.AdminService;
@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService
     private WeChatProperties weChatProperties;
 
     @Autowired
-    private AdminMapper adminMapper;
+    private CardMapper cardMapper;
 
     @Override
     public Boolean login(AdminLoginDTO adminLoginDTO)
@@ -45,12 +45,12 @@ public class AdminServiceImpl implements AdminService
     @Override
     public void deleteCard(int cardId)
     {
-        adminMapper.deleteCardById(cardId);
+        cardMapper.deleteCardById(cardId);
     }
 
     @Override
     public List<Card> showHomeCards()
     {
-        return adminMapper.selectAllCards();
+        return cardMapper.getAllCards();
     }
 }

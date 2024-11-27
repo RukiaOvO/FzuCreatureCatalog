@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService
         {
             cardIds = followMapper.getCardIdsByUserId(userId);
         }
-        return cardMapper.getCardsByIds(cardIds);
+        return cardMapper.getAcceptedCardsByIds(cardIds);
     }
 
     @Transactional
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService
     public List<Card> getUploadCardsById(int id)
     {
         List<Integer> cardIds = uploadMapper.getCardIdsByUserId(id);
-        return cardMapper.getCardsByIds(cardIds);
+        return cardMapper.getAcceptedCardsByIds(cardIds);
     }
 
     @Transactional

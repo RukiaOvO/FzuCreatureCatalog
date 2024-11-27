@@ -24,4 +24,10 @@
             </if>
         </where>
     </select>
+    <select id="getAcceptedCardsByIds" resultType="com.catalog.entity.Card" parameterType="java.util.List">
+        select * from card where id in
+        <foreach collection="ids" item = "id" separator="," open="(" close=")">
+            #{id}
+        </foreach> and status = 1
+    </select>
 </mapper>
