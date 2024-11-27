@@ -1,8 +1,10 @@
 package com.catalog.service.Impl;
 
 import com.catalog.constant.ImgConstant;
+import com.catalog.context.BaseContext;
 import com.catalog.entity.Img;
 import com.catalog.mapper.ImgMapper;
+import com.catalog.mapper.UserMapper;
 import com.catalog.properties.ImgBedProperties;
 import com.catalog.service.ImgService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,6 +18,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -35,6 +38,8 @@ public class ImgServiceImpl implements ImgService
     private ImgBedProperties imgBedProperties;
     @Autowired
     private ImgMapper imgMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public String getImgBedToken()
@@ -67,8 +72,9 @@ public class ImgServiceImpl implements ImgService
         }
     }
 
+    @Transactional
     @Override
-    public String uploadImgToBed(File file)
+    public Img uploadImgToBed(File file)
     {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -79,6 +85,9 @@ public class ImgServiceImpl implements ImgService
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
 
         String result = new RestTemplate().postForObject(imgBedProperties.getUrl() + ImgConstant.UPLOAD_IMG_API, entity, String.class);
+        Img newImg = new Img();
+        String imgUrl;
+        String imgKey;
         try
         {
             JsonNode jsonNode = new ObjectMapper().readTree(result);
@@ -89,9 +98,15 @@ public class ImgServiceImpl implements ImgService
             }
             else
             {
-                result = jsonNode.get("data").get("links").get("url").asText();
-                log.info("获取图片Url:{}", result);
-                return result;
+                imgUrl = jsonNode.get("data").get("links").get("url").asText();
+                imgKey = jsonNode.get("data").get("key").asText();
+                newImg.setUrl(imgUrl);
+                newImg.setImg_key(imgKey);
+                log.info("获取图片Url:{} Key:{}", imgUrl, imgKey);
+                newImg.setId(imgMapper.insert(newImg));
+                int userId = BaseContext.getCurrentId();
+                userMapper.addUserImg(userId, newImg.getId());
+                return newImg;
             }
         }
         catch (IOException e)

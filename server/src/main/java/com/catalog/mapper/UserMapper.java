@@ -4,6 +4,7 @@ import com.catalog.annotation.AutoFill;
 import com.catalog.entity.User;
 import com.catalog.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -29,4 +30,6 @@ public interface UserMapper
 
     @Select("select * from user_msg where user_id = #{id}")
     int getMsgIdById(int id);
+
+    void addUserImg(int userId, int imgId);
 }

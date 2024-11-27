@@ -5,4 +5,8 @@
         insert into user (open_id, nickname, img_id, create_time, update_time) VALUES
     (#{open_id}, #{nickname}, #{img_id}, #{create_time}, #{update_time})
     </insert>
+    <insert id="addUserImg">
+        insert into user_img(user_id, img_id, create_time, update_time) values
+    (#{user_id}, #{img_id}, NOW(), NOW())
+    </insert>
 </mapper>
