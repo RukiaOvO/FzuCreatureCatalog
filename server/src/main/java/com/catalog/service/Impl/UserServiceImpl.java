@@ -115,9 +115,21 @@ public class UserServiceImpl implements UserService
 
     @Transactional
     @Override
-    public List<Card> getFollowCardsById(int id)
+    public List<Card> getFollowCardsById(int userId, int sortRule)
     {
-        List<Integer> cardIds = followMapper.getCardIdsByUserId(id);
+        List<Integer> cardIds;
+        if(sortRule == 0)
+        {
+            cardIds = uploadMapper.getUploadSortedCardIdsByUserId(userId);
+        }
+        else if(sortRule == 1)
+        {
+            cardIds = followMapper.getFollowSortedCardIdsByUserId(userId);
+        }
+        else
+        {
+            cardIds = followMapper.getCardIdsByUserId(userId);
+        }
         return cardMapper.getCardsByIds(cardIds);
     }
 

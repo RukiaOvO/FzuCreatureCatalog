@@ -13,4 +13,7 @@ public interface FollowMapper
 
     @Select("select card_id from user_follow_card where user_id = #{id}")
     List<Integer> getCardIdsByUserId(int id);
+
+    @Select("select card_id from user_follow_card where user_id = #{id} order by create_time desc")
+    List<Integer> getFollowSortedCardIdsByUserId(int id);
 }

@@ -58,10 +58,10 @@ public class UserController
 
     @GetMapping("/follow")
     @ApiOperation("获取关注列表")
-    public Result<List<Card>> getFollowCard()
+    public Result<List<Card>> getFollowCard(@RequestParam int sort_rule)
     {
         int userId = BaseContext.getCurrentId();
-        List<Card> cards = userService.getFollowCardsById(userId);
+        List<Card> cards = userService.getFollowCardsById(userId, sort_rule);
         return Result.success(cards);
     }
     @GetMapping("/info")

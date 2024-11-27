@@ -23,7 +23,7 @@ public interface UserService
 
     int getUserImgNumById(int id);
 
-    List<Card> getFollowCardsById(int id);
+    List<Card> getFollowCardsById(int userId, int sortRule);
 
     List<Card> getUploadCardsById(int id);
 
