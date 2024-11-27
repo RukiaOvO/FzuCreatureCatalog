@@ -11,6 +11,7 @@ import com.catalog.service.UserService;
 import com.catalog.dto.UserLoginDTO;
 import com.catalog.entity.User;
 import com.catalog.result.Result;
+import com.catalog.utils.FileUtil;
 import com.catalog.vo.UserLoginVO;
 import com.catalog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
@@ -18,8 +19,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/user")
@@ -53,6 +58,7 @@ public class UserController
     @ApiOperation("微信登出")
     public Result<String> logout()
     {
+        log.info("WeChat User:{} Logout", BaseContext.getCurrentId());
         return Result.success();
     }
 
@@ -61,6 +67,7 @@ public class UserController
     public Result<List<Card>> getFollowCard(@RequestParam int sort_rule)
     {
         int userId = BaseContext.getCurrentId();
+        log.info("User:{} getFollowCard.", userId);
         List<Card> cards = userService.getFollowCardsById(userId, sort_rule);
         return Result.success(cards);
     }
@@ -69,6 +76,7 @@ public class UserController
     public Result<UserInfoVO> getUserOwnInfo()
     {
         int userId = BaseContext.getCurrentId();
+        log.info("User:{} getUserInfo.", userId);
         User user = userService.getUserById(userId);
         Img userImage = imgService.getImageById(user.getImg_id());
 
@@ -81,11 +89,13 @@ public class UserController
 
         return Result.success(userInfo);
     }
-    @PostMapping("/info")
+    @PostMapping(value = "/info", consumes = "multipart/form-data", produces = "application/json")
     @ApiOperation("上传用户个人信息")
-    public Result<String> uploadUserOwnInfo()
+    public Result<String> uploadUserOwnInfo(@RequestParam("nickname") String nickname, @RequestPart("img") MultipartFile img)
     {
+        int userId = BaseContext.getCurrentId();
+        log.info("User:{} postUserInfo.", userId);
+        File file = FileUtil.MultipartFileToFile(img);
         return Result.success();
     }
-
 }

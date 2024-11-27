@@ -30,6 +30,7 @@ public class ImgController
     @ApiOperation("test")
     public void test()
     {
-        imgService.deleteImgInBed("ZGIRa1");
+        File file = new File("C:\\Users\\wws14\\Pictures\\Screenshots\\屏幕截图 2024-06-13 225457.png");
+        imgService.uploadImgToBed(file);
     }
 }

@@ -1,6 +1,7 @@
 package com.catalog.service;
 
 import com.catalog.entity.Img;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 

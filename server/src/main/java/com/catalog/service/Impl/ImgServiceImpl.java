@@ -8,16 +8,22 @@ import com.catalog.service.ImgService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.InputStreamBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,6 +82,7 @@ public class ImgServiceImpl implements ImgService
         try
         {
             JsonNode jsonNode = new ObjectMapper().readTree(result);
+            System.out.println(jsonNode.toString());
             if(jsonNode.get("status").asText().equals("false"))
             {
                 throw new IllegalStateException(ImgConstant.UPLOAD_REQUEST_ERROR);
