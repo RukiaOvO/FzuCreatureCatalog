@@ -1,6 +1,7 @@
 package com.catalog.service.Impl;
 
 import com.catalog.entity.Card;
+import com.catalog.entity.Img;
 import com.catalog.mapper.CardMapper;
 import com.catalog.mapper.UploadMapper;
 import com.catalog.service.CardService;
@@ -32,6 +33,12 @@ public class CardServiceImpl implements CardService
     public void acceptCardById(int cardId)
     {
         cardMapper.acceptCardById(cardId);
+    }
+
+    @Override
+    public void addCardImg(Card card, Img img)
+    {
+        cardMapper.addCardImg(card.getId(), img.getId());
     }
 
 }

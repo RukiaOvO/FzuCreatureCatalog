@@ -95,8 +95,8 @@ public class UserController
     {
         int userId = BaseContext.getCurrentId();
         log.info("User:{} uploadUserInfo.", userId);
-        File file = FileUtil.MultipartFileToFile(imgFile);
-        Img img = imgService.uploadImgToBed(file);
+        Img img = imgService.uploadImgToBed(imgFile);
+        userService.updateUserInfo(nickname, img);
         return Result.success(img.getUrl());
     }
 }

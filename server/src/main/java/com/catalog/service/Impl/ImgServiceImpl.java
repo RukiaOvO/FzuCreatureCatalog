@@ -7,6 +7,7 @@ import com.catalog.mapper.ImgMapper;
 import com.catalog.mapper.UserMapper;
 import com.catalog.properties.ImgBedProperties;
 import com.catalog.service.ImgService;
+import com.catalog.utils.FileUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -74,14 +75,14 @@ public class ImgServiceImpl implements ImgService
 
     @Transactional
     @Override
-    public Img uploadImgToBed(File file)
+    public Img uploadImgToBed(MultipartFile file)
     {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.setBearerAuth(getImgBedToken());
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", new FileSystemResource(file));
+        body.add("file", new FileSystemResource(FileUtil.MultipartFileToFile(file)));
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, headers);
 
         String result = new RestTemplate().postForObject(imgBedProperties.getUrl() + ImgConstant.UPLOAD_IMG_API, entity, String.class);

@@ -3,10 +3,7 @@ package com.catalog.mapper;
 import com.catalog.annotation.AutoFill;
 import com.catalog.entity.Card;
 import com.catalog.enumeration.OperationType;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -34,4 +31,7 @@ public interface CardMapper
 
     @Select("select * from card")
     List<Card> getAllCards();
+
+    @Insert("insert into card_img(card_id, picture_id, create_time, update_time) values (#{card_id}, #{img_id}, NOW(), NOW())")
+    void addCardImg(int card_id, int img_id);
 }

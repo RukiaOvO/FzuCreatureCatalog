@@ -1,8 +1,11 @@
 package com.catalog.entity;
 
+import lombok.Data;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+@Data
 public class Card
 {
     private int id;

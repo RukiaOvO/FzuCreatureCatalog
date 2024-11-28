@@ -2,8 +2,11 @@ package com.catalog.service.Impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.catalog.context.BaseContext;
 import com.catalog.entity.Card;
+import com.catalog.entity.Img;
 import com.catalog.entity.Msg;
+import com.catalog.exception.BaseException;
 import com.catalog.exception.LoginFailedException;
 import com.catalog.mapper.*;
 import com.catalog.properties.WeChatProperties;
@@ -195,5 +198,13 @@ public class UserServiceImpl implements UserService
         {
             userMapper.followCard(userId, cardId);
         }
+    }
+
+    @Override
+    public void updateUserInfo(String nickname, Img img)
+    {
+        int imgId = img.getId();
+        int userId = BaseContext.getCurrentId();
+        userMapper.updateUserInfo(userId, nickname, imgId);
     }
 }

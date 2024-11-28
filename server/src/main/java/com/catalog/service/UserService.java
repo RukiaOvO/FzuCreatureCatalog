@@ -2,6 +2,7 @@ package com.catalog.service;
 
 import com.catalog.dto.UserLoginDTO;
 import com.catalog.entity.Card;
+import com.catalog.entity.Img;
 import com.catalog.entity.Msg;
 import com.catalog.entity.User;
 import com.catalog.vo.UserInfoVO;
@@ -38,4 +39,6 @@ public interface UserService
     void likeCardById(int userId, int cardId);
 
     void followCardById(int userId, int cardId);
+
+    void updateUserInfo(String nickname, Img img);
 }

@@ -3,10 +3,7 @@ package com.catalog.mapper;
 import com.catalog.annotation.AutoFill;
 import com.catalog.entity.User;
 import com.catalog.enumeration.OperationType;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -50,4 +47,7 @@ public interface UserMapper
 
     @Delete("delete from user_follow_card where user_id = #{user_id} and card_id = #{card_id}")
     void unfollowCard(int user_id, int card_id);
+
+    @Update("update user set nickname = #{nickname}, img_id = #{img_id}, update_time = NOW() where id = #{user_id}")
+    void updateUserInfo(int user_id, String nickname, int img_id);
 }

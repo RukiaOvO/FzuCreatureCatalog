@@ -8,7 +8,7 @@ import java.io.File;
 public interface ImgService
 {
     String getImgBedToken();
-    Img uploadImgToBed(File file);
+    Img uploadImgToBed(MultipartFile file);
     void deleteImgInBed(String key);
     Img getImageById(int imgId);
 }
