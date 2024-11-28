@@ -34,4 +34,6 @@ public interface UserService
     List<Integer> getMsgIdsById(int id);
 
     Integer getMsgIdById(int id);
+
+    void likeCardById(int userId, int cardId);
 }

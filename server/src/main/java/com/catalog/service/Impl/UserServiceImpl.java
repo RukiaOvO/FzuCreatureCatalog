@@ -168,4 +168,18 @@ public class UserServiceImpl implements UserService
     {
         return userMapper.getMsgIdById(id);
     }
+
+    @Override
+    public void likeCardById(int userId, int cardId)
+    {
+          List<Integer> cardIds = userMapper.getLikeCardIdsById(userId);
+          if(cardIds.contains(cardId))
+          {
+              userMapper.dislikeCard(userId, cardId);
+          }
+          else
+          {
+              userMapper.likeCard(userId, cardId);
+          }
+    }
 }

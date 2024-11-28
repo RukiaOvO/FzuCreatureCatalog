@@ -53,4 +53,12 @@ public class CardController
         List<Card> cards = userService.getUploadCardsById(userId);
         return Result.success(cards);
     }
+    @PutMapping("/card_like")
+    @ApiOperation("用户点赞卡片")
+    public Result<String> userLikeCard(@RequestParam int cardId)
+    {
+        int userId = BaseContext.getCurrentId();
+        userService.likeCardById(userId, cardId);
+        return Result.success();
+    }
 }
