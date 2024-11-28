@@ -16,13 +16,13 @@ public class User implements Serializable
 {
     private int id;
 
-    private int img_id;
-
-    private String open_id;
+    private String openId;
 
     private String nickname;;
 
-    private LocalDateTime create_time;
+    private int imgId;
 
-    private LocalDateTime update_time;
+    private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
 }

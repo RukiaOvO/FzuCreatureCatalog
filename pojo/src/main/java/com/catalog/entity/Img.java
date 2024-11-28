@@ -9,7 +9,7 @@ public class Img
 {
     private int id;
     private String url;
-    private LocalDateTime create_time;
-    private LocalDateTime update_time;
-    private String img_key;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private String imgKey;
 }

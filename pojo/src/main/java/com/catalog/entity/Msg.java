@@ -16,6 +16,6 @@ public class Msg implements Serializable
 {
     private int id;
     private String content;
-    private LocalDateTime create_time;
+    private LocalDateTime createTime;
     private int status;
 }

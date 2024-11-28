@@ -101,7 +101,7 @@ public class ImgServiceImpl implements ImgService
                 imgUrl = jsonNode.get("data").get("links").get("url").asText().replace("http", "https");
                 imgKey = jsonNode.get("data").get("key").asText();
                 newImg.setUrl(imgUrl);
-                newImg.setImg_key(imgKey);
+                newImg.setImgKey(imgKey);
                 log.info("获取图片Url:{} Key:{}", imgUrl, imgKey);
                 newImg.setId(imgMapper.insert(newImg));
                 int userId = BaseContext.getCurrentId();

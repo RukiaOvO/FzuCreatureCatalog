@@ -10,7 +10,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ImgMapper
 {
-    @Select("select * from img where id = #{id}")
     Img getImageById(int id);
 
     @Select("select count(*) from user_img where user_id = #{id}")

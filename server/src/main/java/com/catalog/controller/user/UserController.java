@@ -49,7 +49,7 @@ public class UserController
 
         UserLoginVO userLoginVO = UserLoginVO.builder()
                 .id(user.getId())
-                .openid(user.getOpen_id())
+                .openid(user.getOpenId())
                 .token(userToken)
                 .build();
         return Result.success(userLoginVO);
@@ -78,11 +78,11 @@ public class UserController
         int userId = BaseContext.getCurrentId();
         log.info("User:{} getUserInfo.", userId);
         User user = userService.getUserById(userId);
-        Img userImage = imgService.getImageById(user.getImg_id());
+        Img userImage = imgService.getImageById(user.getImgId());
 
         UserInfoVO userInfo = new UserInfoVO();
         userInfo.setNickname(user.getNickname());
-        userInfo.setImg_url(userImage.getUrl());
+        userInfo.setImg_url(userImage == null ? "null" : userImage.getUrl());
         userInfo.setFollow_num(userService.getUserFollowNumById(userId));
         userInfo.setImg_num(userService.getUserImgNumById(userId));
         userInfo.setLike_num(userService.getUserLikeNumById(userId));

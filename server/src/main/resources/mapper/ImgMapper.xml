@@ -5,4 +5,7 @@
         insert into img(url, create_time, update_time, img_key)
         values(#{url}, #{create_time}, #{update_time}, #{img_key})
     </insert>
+    <select id="getImageById" resultType="com.catalog.entity.Img">
+        select * from img where id = #{id}
+    </select>
 </mapper>

@@ -77,6 +77,14 @@ public class CardController
         userService.followCardById(userId, card_id);
         return Result.success();
     }
+    @PostMapping(value = "/card", consumes = "multipart/form-data", produces = "application/json")
+    @ApiOperation("上传卡片")
+    public Result<String> uploadCard(@RequestPart("img") MultipartFile imgFIle, @RequestParam String intro, @RequestParam double longitude, @RequestParam double latitude, @RequestParam String name)
+    {
+        int userId = BaseContext.getCurrentId();
+        Img img = imgService.uploadImgToBed(imgFIle);
+        return Result.success();
+    }
     @PostMapping(value = "/upload_card_img", consumes = "multipart/form-data", produces = "application/json")
     @ApiOperation("上传卡片图片")
     public Result<String> uploadCardImg(@RequestParam int card_id, @RequestPart("img_file") MultipartFile imgFile)
