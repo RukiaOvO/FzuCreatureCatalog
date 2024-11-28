@@ -91,14 +91,13 @@ public class ImgServiceImpl implements ImgService
         try
         {
             JsonNode jsonNode = new ObjectMapper().readTree(result);
-            System.out.println(jsonNode.toString());
             if(jsonNode.get("status").asText().equals("false"))
             {
                 throw new IllegalStateException(ImgConstant.UPLOAD_REQUEST_ERROR);
             }
             else
             {
-                imgUrl = jsonNode.get("data").get("links").get("url").asText();
+                imgUrl = jsonNode.get("data").get("links").get("url").asText().replace("http", "https");
                 imgKey = jsonNode.get("data").get("key").asText();
                 newImg.setUrl(imgUrl);
                 newImg.setImg_key(imgKey);

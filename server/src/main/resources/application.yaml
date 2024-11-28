@@ -46,7 +46,7 @@ catalog:
     admin-token-name: token
     user-secret-key: ItsCatalog
     user-ttl: 72000000
-    user-token-name: authentication
+    user-token-name: authorization
   async:
     core-pool-size: 100
     max-pool-size: 100

@@ -94,7 +94,7 @@ public class UserController
     public Result<String> uploadUserOwnInfo(@RequestParam("nickname") String nickname, @RequestPart("img") MultipartFile imgFile)
     {
         int userId = BaseContext.getCurrentId();
-        log.info("User:{} postUserInfo.", userId);
+        log.info("User:{} uploadUserInfo.", userId);
         File file = FileUtil.MultipartFileToFile(imgFile);
         Img img = imgService.uploadImgToBed(file);
         return Result.success(img.getUrl());

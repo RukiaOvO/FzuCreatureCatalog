@@ -31,5 +31,5 @@ public interface UserMapper
     @Select("select * from user_msg where user_id = #{id}")
     int getMsgIdById(int id);
 
-    void addUserImg(int userId, int imgId);
+    void addUserImg(int user_id, int img_id);
 }
