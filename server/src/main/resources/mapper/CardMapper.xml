@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.catalog.mapper.CardMapper">
+    <update id="updateDailyLike">
+        update card set daily_like_num = 0 where id in
+        <foreach collection="cards" item = "card" separator="," open="(" close=")">
+            #{card.id}
+        </foreach>
+    </update>
     <select id="getCardsByIds" resultType="com.catalog.entity.Card" parameterType="java.util.List">
         select * from card where id in
         <foreach collection="ids" item = "id" separator="," open="(" close=")">
@@ -29,5 +35,11 @@
         <foreach collection="ids" item = "id" separator="," open="(" close=")">
             #{id}
         </foreach> and status = 1
+    </select>
+    <select id="getTotalRankList" resultType="com.catalog.entity.Card">
+        select * from card order by total_like_num desc limit 10
+    </select>
+    <select id="getDailyRankList" resultType="com.catalog.entity.Card">
+        select * from card order by daily_like_num desc limit 10
     </select>
 </mapper>

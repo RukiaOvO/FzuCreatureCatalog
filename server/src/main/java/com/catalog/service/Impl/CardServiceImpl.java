@@ -6,7 +6,9 @@ import com.catalog.mapper.CardMapper;
 import com.catalog.mapper.UploadMapper;
 import com.catalog.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +41,27 @@ public class CardServiceImpl implements CardService
     public void addCardImg(Card card, Img img)
     {
         cardMapper.addCardImg(card.getId(), img.getId());
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?") // 每日零点执行
+    @Transactional
+    @Override
+    public void updateDailyData()
+    {
+        List<Card> cards = cardMapper.getAllCards();
+        cardMapper.updateDailyLike(cards);
+    }
+
+    @Override
+    public List<Card> getTotalRankList()
+    {
+        return cardMapper.getTotalRankList();
+    }
+
+    @Override
+    public List<Card> getDailyRankList()
+    {
+        return cardMapper.getDailyRankList();
     }
 
 }

@@ -14,4 +14,10 @@ public interface CardService
     void acceptCardById(int cardId);
 
     void addCardImg(Card card, Img img);
+
+    void updateDailyData();
+
+    List<Card> getTotalRankList();
+
+    List<Card> getDailyRankList();
 }

@@ -34,4 +34,10 @@ public interface CardMapper
 
     @Insert("insert into card_img(card_id, picture_id, create_time, update_time) values (#{card_id}, #{img_id}, NOW(), NOW())")
     void addCardImg(int card_id, int img_id);
+
+    void updateDailyLike(List<Card> cards);
+
+    List<Card> getTotalRankList();
+
+    List<Card> getDailyRankList();
 }
