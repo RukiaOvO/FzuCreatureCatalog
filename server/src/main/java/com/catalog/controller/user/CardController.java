@@ -90,6 +90,6 @@ public class CardController
         }
         Img img = imgService.uploadImgToBed(imgFile);
         cardService.addCardImg(card, img);
-        return Result.success();
+        return Result.success(img.getUrl());
     }
 }
