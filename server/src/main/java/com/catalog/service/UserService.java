@@ -36,4 +36,6 @@ public interface UserService
     Integer getMsgIdById(int id);
 
     void likeCardById(int userId, int cardId);
+
+    void followCardById(int userId, int cardId);
 }

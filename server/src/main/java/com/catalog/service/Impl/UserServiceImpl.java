@@ -182,4 +182,18 @@ public class UserServiceImpl implements UserService
               userMapper.likeCard(userId, cardId);
           }
     }
+
+    @Override
+    public void followCardById(int userId, int cardId)
+    {
+        List<Integer> cardIds = userMapper.getFollowCardIdsById(userId);
+        if(cardIds.contains(cardId))
+        {
+            userMapper.unfollowCard(userId, cardId);
+        }
+        else
+        {
+            userMapper.followCard(userId, cardId);
+        }
+    }
 }

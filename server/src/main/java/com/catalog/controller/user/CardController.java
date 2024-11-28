@@ -61,4 +61,12 @@ public class CardController
         userService.likeCardById(userId, cardId);
         return Result.success();
     }
+    @PutMapping("/card_star")
+    @ApiOperation("用户收藏卡片")
+    public Result<String> userFollowCard(@RequestParam int cardId)
+    {
+        int userId = BaseContext.getCurrentId();
+        userService.followCardById(userId, cardId);
+        return Result.success();
+    }
 }
