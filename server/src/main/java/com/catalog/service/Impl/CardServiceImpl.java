@@ -64,4 +64,10 @@ public class CardServiceImpl implements CardService
         return cardMapper.getDailyRankList();
     }
 
+    @Override
+    public int addCard(Card card)
+    {
+        return cardMapper.addCard(card);
+    }
+
 }

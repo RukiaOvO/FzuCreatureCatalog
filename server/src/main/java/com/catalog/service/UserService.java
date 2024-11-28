@@ -41,4 +41,6 @@ public interface UserService
     void followCardById(int userId, int cardId);
 
     void updateUserInfo(String nickname, Img img);
+
+    void uploadCard(int userId, int cardId);
 }

@@ -40,4 +40,19 @@ public interface CardMapper
     List<Card> getTotalRankList();
 
     List<Card> getDailyRankList();
+
+    @AutoFill(OperationType.INSERT)
+    int addCard(Card card);
+
+    @Update("update card set follow_num = follow_num - 1 where id = #{cardId}")
+    void unFollow(int cardId);
+
+    @Update("update card set follow_num = follow_num + 1 where id = #{cardId}")
+    void follow(int cardId);
+
+    @Update("update card set daily_like_num = daily_like_num - 1, total_like_num = total_like_num - 1 where id = #{cardId}")
+    void disLike(int cardId);
+
+    @Update("update card set daily_like_num = daily_like_num + 1, total_like_num = total_like_num + 1 where id = #{cardId}")
+    void like(int cardId);
 }

@@ -83,7 +83,16 @@ public class CardController
     {
         int userId = BaseContext.getCurrentId();
         Img img = imgService.uploadImgToBed(imgFIle);
-        return Result.success();
+        Card card = new Card();
+        card.setImgId(img.getId());
+        card.setIntroduction(intro);
+        card.setAnimalName(name);
+        card.setLongitude(longitude);
+        card.setLatitude(latitude);
+        card.setStatus(0);
+        int cardId = cardService.addCard(card);
+        userService.uploadCard(userId, cardId);
+        return Result.success(MessageConstant.UPLOAD_SUCCESS);
     }
     @PostMapping(value = "/upload_card_img", consumes = "multipart/form-data", produces = "application/json")
     @ApiOperation("上传卡片图片")

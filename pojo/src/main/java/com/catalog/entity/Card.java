@@ -15,6 +15,8 @@ public class Card
     private String personality;
     private String introduction;
     private String locationDescription;
+    private double longitude;
+    private double latitude;
     private int followNum;
     private int dailyLikeNum;
     private int totalLikeNum;

@@ -20,4 +20,6 @@ public interface CardService
     List<Card> getTotalRankList();
 
     List<Card> getDailyRankList();
+
+    int addCard(Card card);
 }

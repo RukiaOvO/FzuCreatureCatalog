@@ -179,13 +179,16 @@ public class UserServiceImpl implements UserService
           if(cardIds.contains(cardId))
           {
               userMapper.dislikeCard(userId, cardId);
+              cardMapper.disLike(cardId);
           }
           else
           {
               userMapper.likeCard(userId, cardId);
+              cardMapper.like(cardId);
           }
     }
 
+    @Transactional
     @Override
     public void followCardById(int userId, int cardId)
     {
@@ -193,10 +196,12 @@ public class UserServiceImpl implements UserService
         if(cardIds.contains(cardId))
         {
             userMapper.unfollowCard(userId, cardId);
+            cardMapper.unFollow(cardId);
         }
         else
         {
             userMapper.followCard(userId, cardId);
+            cardMapper.follow(cardId);
         }
     }
 
@@ -206,5 +211,11 @@ public class UserServiceImpl implements UserService
         int imgId = img.getId();
         int userId = BaseContext.getCurrentId();
         userMapper.updateUserInfo(userId, nickname, imgId);
+    }
+
+    @Override
+    public void uploadCard(int userId, int cardId)
+    {
+        uploadMapper.userUploadCard(userId, cardId);
     }
 }

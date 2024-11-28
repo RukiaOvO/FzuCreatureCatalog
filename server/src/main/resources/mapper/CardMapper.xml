@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.catalog.mapper.CardMapper">
+    <insert id="addCard" useGeneratedKeys="true" keyProperty="id">
+        insert into card(img_id, animal_name, species, personality, introduction, location_description, longitude, latitude, create_time, update_time, status)
+        values(#{imgId}, #{animalName}, #{species}, #{personality}, #{introduction}, #{locationDescription}, #{longitude}, #{latitude}, #{createTime}, #{updateTime}, #{status})
+    </insert>
     <update id="updateDailyLike">
         update card set daily_like_num = 0 where id in
         <foreach collection="cards" item = "card" separator="," open="(" close=")">
