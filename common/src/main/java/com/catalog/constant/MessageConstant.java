@@ -8,4 +8,7 @@ public class MessageConstant
     public static final String UPDATE_SUCCESS = "更新成功";
     public static final String MESSAGE_NOT_EXIST = "消息不存在";
     public static final String ACCESS_DENIED = "权限不足";
+    public static final String REVIEW_FAILED = "审核不通过";
+    public static final String REVIEW_ACCEPT = "审核通过";
+    public static final String CARD_NOT_EXIST = "卡片不存在";
 }

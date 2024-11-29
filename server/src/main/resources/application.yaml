@@ -43,7 +43,7 @@ catalog:
     admin-password: root
     admin-secret-key: ItsCatalog
     admin-ttl: 72000000
-    admin-token-name: token
+    admin-token-name: authorization
     user-secret-key: ItsCatalog
     user-ttl: 72000000
     user-token-name: authorization

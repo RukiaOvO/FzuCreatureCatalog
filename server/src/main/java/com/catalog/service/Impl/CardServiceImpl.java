@@ -1,10 +1,13 @@
 package com.catalog.service.Impl;
 
+import com.catalog.dto.UserHomeCardDTO;
 import com.catalog.entity.Card;
 import com.catalog.entity.Img;
 import com.catalog.mapper.CardMapper;
+import com.catalog.mapper.ImgMapper;
 import com.catalog.mapper.UploadMapper;
 import com.catalog.service.CardService;
+import com.catalog.vo.CardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,9 @@ public class CardServiceImpl implements CardService
     private CardMapper cardMapper;
     @Autowired
     private UploadMapper uploadMapper;
+    @Autowired
+    private ImgMapper imgMapper;
+
     @Override
     public Card getCardById(int id)
     {
@@ -68,6 +74,21 @@ public class CardServiceImpl implements CardService
     public int addCard(Card card)
     {
         return cardMapper.addCard(card);
+    }
+
+    @Transactional
+    @Override
+    public List<Img> getCardImgs(Card card)
+    {
+        List<Integer> ids = cardMapper.getCardImgIdsByCardId(card.getId());
+        if(ids == null || ids.isEmpty()) return null;
+        return imgMapper.getImagesByIds(ids);
+    }
+
+    @Override
+    public List<Card> getAcceptedCard(UserHomeCardDTO userHomeCardDTO)
+    {
+        return cardMapper.getAcceptedCards();
     }
 
 }

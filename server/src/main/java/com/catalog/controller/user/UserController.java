@@ -6,12 +6,15 @@ import com.catalog.entity.Card;
 import com.catalog.entity.Img;
 import com.catalog.entity.Msg;
 import com.catalog.mapper.FollowMapper;
+import com.catalog.service.CardService;
 import com.catalog.service.ImgService;
 import com.catalog.service.UserService;
 import com.catalog.dto.UserLoginDTO;
 import com.catalog.entity.User;
 import com.catalog.result.Result;
 import com.catalog.utils.FileUtil;
+import com.catalog.utils.MathUtil;
+import com.catalog.vo.CardVO;
 import com.catalog.vo.UserLoginVO;
 import com.catalog.vo.UserInfoVO;
 import io.swagger.annotations.Api;
@@ -23,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +42,7 @@ public class UserController
     @Autowired
     private ImgService imgService;
     @Autowired
-    private FollowMapper followMapper;
+    private CardService cardService;
 
     @PostMapping("/login")
     @ApiOperation("微信登入")
@@ -64,12 +69,31 @@ public class UserController
 
     @GetMapping("/follow")
     @ApiOperation("获取关注列表")
-    public Result<List<Card>> getFollowCard(@RequestParam int sort_rule)
+    public Result<List<CardVO>> getFollowCard(@RequestParam int sort_rule)
     {
         int userId = BaseContext.getCurrentId();
         log.info("User:{} getFollowCard.", userId);
         List<Card> cards = userService.getFollowCardsById(userId, sort_rule);
-        return Result.success(cards);
+        if(cards == null || cards.isEmpty()) return Result.success();
+        List<CardVO> cardVOs = new ArrayList<>();
+        for(Card c : cards)
+        {
+            List<Img> imgs = cardService.getCardImgs(c);
+            CardVO cardVO = CardVO.builder()
+                    .card_id(c.getId())
+                    .pet_name(c.getAnimalName())
+                    .intro(c.getIntroduction())
+                    .follow_num(c.getFollowNum())
+                    .location(c.getLocationDescription())
+                    .like_num(c.getTotalLikeNum())
+                    .img_url(imgService.getImageById(c.getImgId()).getUrl())
+                    .follow(userService.isFollowCard(c))
+                    .like(userService.isLikeCard(c))
+                    .imgs(imgs)
+                    .build();
+            cardVOs.add(cardVO);
+        }
+        return Result.success(cardVOs);
     }
     @GetMapping("/info")
     @ApiOperation("获取用户个人信息")

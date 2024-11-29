@@ -103,7 +103,7 @@ public class ImgServiceImpl implements ImgService
                 newImg.setUrl(imgUrl);
                 newImg.setImgKey(imgKey);
                 log.info("获取图片Url:{} Key:{}", imgUrl, imgKey);
-                newImg.setId(imgMapper.insert(newImg));
+                imgMapper.insert(newImg);
                 int userId = BaseContext.getCurrentId();
                 userMapper.addUserImg(userId, newImg.getId());
                 return newImg;

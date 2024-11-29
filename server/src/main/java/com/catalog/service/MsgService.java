@@ -8,4 +8,8 @@ import java.util.List;
 public interface MsgService
 {
     void updateMsgByIds(List<Integer> ids);
+
+    void sendDeleteMsg(int cardId);
+
+    void sendAcceptMsg(int cardId);
 }

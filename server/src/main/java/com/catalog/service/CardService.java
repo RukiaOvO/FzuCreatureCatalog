@@ -1,7 +1,9 @@
 package com.catalog.service;
 
+import com.catalog.dto.UserHomeCardDTO;
 import com.catalog.entity.Card;
 import com.catalog.entity.Img;
+import com.catalog.vo.CardVO;
 
 import java.util.List;
 
@@ -22,4 +24,8 @@ public interface CardService
     List<Card> getDailyRankList();
 
     int addCard(Card card);
+
+    List<Img> getCardImgs(Card card);
+
+    List<Card> getAcceptedCard(UserHomeCardDTO userHomeCardDTO);
 }

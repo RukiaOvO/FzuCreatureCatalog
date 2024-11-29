@@ -43,4 +43,8 @@ public interface UserService
     void updateUserInfo(String nickname, Img img);
 
     void uploadCard(int userId, int cardId);
+
+    boolean isFollowCard(Card card);
+
+    boolean isLikeCard(Card card);
 }

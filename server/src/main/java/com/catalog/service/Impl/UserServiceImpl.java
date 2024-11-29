@@ -133,6 +133,7 @@ public class UserServiceImpl implements UserService
         {
             cardIds = followMapper.getCardIdsByUserId(userId);
         }
+        if(cardIds == null || cardIds.isEmpty()) return null;
         return cardMapper.getAcceptedCardsByIds(cardIds);
     }
 
@@ -141,6 +142,7 @@ public class UserServiceImpl implements UserService
     public List<Card> getUploadCardsById(int id)
     {
         List<Integer> cardIds = uploadMapper.getCardIdsByUserId(id);
+        if(cardIds == null || cardIds.isEmpty()) return null;
         return cardMapper.getAcceptedCardsByIds(cardIds);
     }
 
@@ -149,6 +151,7 @@ public class UserServiceImpl implements UserService
     public List<Msg> getUserMsgById(int id)
     {
         List<Integer> msgIds = userMapper.getMsgIdsById(id);
+        if(msgIds == null || msgIds.isEmpty()) return null;
         return msgMapper.getMsgByIds(msgIds);
     }
 
@@ -172,10 +175,12 @@ public class UserServiceImpl implements UserService
         return userMapper.getMsgIdById(id);
     }
 
+    @Transactional
     @Override
     public void likeCardById(int userId, int cardId)
     {
           List<Integer> cardIds = userMapper.getLikeCardIdsById(userId);
+          if(cardIds == null || cardIds.isEmpty()) return;
           if(cardIds.contains(cardId))
           {
               userMapper.dislikeCard(userId, cardId);
@@ -193,6 +198,7 @@ public class UserServiceImpl implements UserService
     public void followCardById(int userId, int cardId)
     {
         List<Integer> cardIds = userMapper.getFollowCardIdsById(userId);
+        if(cardIds == null || cardIds.isEmpty()) return;
         if(cardIds.contains(cardId))
         {
             userMapper.unfollowCard(userId, cardId);
@@ -217,5 +223,17 @@ public class UserServiceImpl implements UserService
     public void uploadCard(int userId, int cardId)
     {
         uploadMapper.userUploadCard(userId, cardId);
+    }
+
+    @Override
+    public boolean isFollowCard(Card c)
+    {
+        return followMapper.getFollowCard(BaseContext.getCurrentId(), c.getId()) != null;
+    }
+
+    @Override
+    public boolean isLikeCard(Card c)
+    {
+        return likeMapper.getLikeCard(BaseContext.getCurrentId(), c.getId()) != null;
     }
 }

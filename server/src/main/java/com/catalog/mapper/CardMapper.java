@@ -15,6 +15,9 @@ public interface CardMapper
 
     List<Card> getCardsByIds(List<Integer> ids);
 
+    @Select("select * from card where status = 1")
+    List<Card> getAcceptedCards();
+
     List<Card> getAcceptedCardsByIds(List<Integer> ids);
 
     List<Card> getCardsByKeyWord(String keyWord);
@@ -22,8 +25,7 @@ public interface CardMapper
     @Select("select * from card where id = #{id}")
     Card getCardById(int id);
 
-    @AutoFill(OperationType.UPDATE)
-    @Update("update card set status = 1 where id = #{id}")
+    @Update("update card set status = 1, update_time = NOW() where id = #{id}")
     void acceptCardById(int id);
 
     @Delete("delete from card where id = #{id}")
@@ -55,4 +57,7 @@ public interface CardMapper
 
     @Update("update card set daily_like_num = daily_like_num + 1, total_like_num = total_like_num + 1 where id = #{cardId}")
     void like(int cardId);
+
+    @Select("select picture_id from card_img where card_id = #{cardId}")
+    List<Integer> getCardImgIdsByCardId(int cardId);
 }

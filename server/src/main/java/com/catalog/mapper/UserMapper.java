@@ -36,7 +36,7 @@ public interface UserMapper
     @Insert("insert into user_like_card(card_id, user_id, create_time, update_time) values(#{card_id}, #{user_id}, NOW(), NOW())")
     void likeCard(int user_id, int card_id);
 
-    @Delete("delete from user_like_card where user_id = #{id} and card_id = #{card_id}")
+    @Delete("delete from user_like_card where user_id = #{user_id} and card_id = #{card_id}")
     void dislikeCard(int user_id, int card_id);
 
     @Select("select card_id from user_follow_card where user_id = #{id}")
@@ -50,4 +50,7 @@ public interface UserMapper
 
     @Update("update user set nickname = #{nickname}, img_id = #{img_id}, update_time = NOW() where id = #{user_id}")
     void updateUserInfo(int user_id, String nickname, int img_id);
+
+    @Select("select user_id from user_upload_card where card_id = #{cardId}")
+    int getUserByCardId(int cardId);
 }

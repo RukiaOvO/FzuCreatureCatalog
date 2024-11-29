@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.catalog.mapper.MsgMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into msg(create_time, update_time, content, status)
+        values(#{createTime}, #{updateTime}, #{content}, #{status})
+    </insert>
     <update id="updateMsgByIds" parameterType="java.util.List">
         <foreach collection="ids" item="id" separator=";" open="(" close=")">
             UPDATE msg
@@ -10,9 +14,9 @@
                 id = #{id}
         </foreach>
     </update>
-    <select id="getMsgByIds" resultType="com.catalog.entity.Msg">
+    <select id="getMsgByIds" resultType="com.catalog.entity.Msg" parameterType="java.util.List">
         select * from msg where id in
-        <foreach collection="ids" item="id" separator="," open="(" close=")">
+        <foreach collection="ids" item = "id" separator="," open="(" close=")">
             #{id}
         </foreach>
     </select>
