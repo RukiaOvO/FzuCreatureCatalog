@@ -3,7 +3,7 @@
 <mapper namespace="com.catalog.mapper.ImgMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into img(url, create_time, update_time, img_key)
-        values(#{url}, #{create_time}, #{update_time}, #{img_key})
+        values(#{url}, #{createTime}, #{updateTime}, #{imgKey})
     </insert>
     <select id="getImageById" resultType="com.catalog.entity.Img">
         select * from img where id = #{id}

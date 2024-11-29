@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user/ranklist")
+@RequestMapping("/ranklist")
 @Api(tags = "C端用户排行榜相关接口")
 @Slf4j
 public class RankListController

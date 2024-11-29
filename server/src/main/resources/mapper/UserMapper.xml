@@ -3,10 +3,10 @@
 <mapper namespace="com.catalog.mapper.UserMapper">
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into user (open_id, nickname, img_id, create_time, update_time) VALUES
-    (#{open_id}, #{nickname}, #{img_id}, #{create_time}, #{update_time})
+    (#{openId}, #{nickname}, #{imgId}, #{createTime}, #{updateTime})
     </insert>
     <insert id="addUserImg">
         insert into user_img(user_id, img_id, create_time, update_time) values
-    (#{user_id}, #{img_id}, NOW(), NOW())
+    (#{userId}, #{imgId}, NOW(), NOW())
     </insert>
 </mapper>
