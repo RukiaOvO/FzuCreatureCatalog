@@ -28,4 +28,6 @@ public interface CardService
     List<Img> getCardImgs(Card card);
 
     List<Card> getAcceptedCard(UserHomeCardDTO userHomeCardDTO);
+
+    List<Card> getUnAcceptedCard();
 }

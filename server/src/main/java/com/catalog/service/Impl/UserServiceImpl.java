@@ -123,15 +123,11 @@ public class UserServiceImpl implements UserService
         List<Integer> cardIds;
         if(sortRule == 0)
         {
-            cardIds = uploadMapper.getUploadSortedCardIdsByUserId(userId);
-        }
-        else if(sortRule == 1)
-        {
-            cardIds = followMapper.getFollowSortedCardIdsByUserId(userId);
+            cardIds = followMapper.getUploadSortedCardIdsByUserId(userId);
         }
         else
         {
-            cardIds = followMapper.getCardIdsByUserId(userId);
+            cardIds = followMapper.getFollowSortedCardIdsByUserId(userId);
         }
         if(cardIds == null || cardIds.isEmpty()) return null;
         return cardMapper.getAcceptedCardsByIds(cardIds);

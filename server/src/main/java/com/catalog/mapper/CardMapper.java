@@ -60,4 +60,7 @@ public interface CardMapper
 
     @Select("select picture_id from card_img where card_id = #{cardId}")
     List<Integer> getCardImgIdsByCardId(int cardId);
+
+    @Select("select * from card where status = 0")
+    List<Card> getUnAcceptedCard();
 }

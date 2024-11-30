@@ -44,6 +44,7 @@ public class CardController
     @ApiOperation("首页获取卡片")
     public Result<List<CardVO>> getHomeCard(@RequestBody UserHomeCardDTO userHomeCardDTO)
     {
+        log.info("User: {} getHomeCard:{}", BaseContext.getCurrentId(), userHomeCardDTO);
         List<Card> cards = cardService.getAcceptedCard(userHomeCardDTO);
         if(cards == null || cards.isEmpty()) return Result.success();
         List<CardVO> cardVOs = new ArrayList<>();
@@ -67,7 +68,7 @@ public class CardController
             cardVOs.add(cardVO);
         }
         cardVOs.sort(Comparator.comparingDouble(CardVO::getDistance));
-        cardVOs = cardVOs.subList(0, Math.min(cardVOs.size(), userHomeCardDTO.getNum()));
+        cardVOs = cardVOs.subList(Math.min(0, userHomeCardDTO.getOffset()), Math.min(cardVOs.size(), userHomeCardDTO.getNum()));
         return Result.success(cardVOs);
     }
     @GetMapping("/card")
@@ -93,10 +94,10 @@ public class CardController
     }
     @GetMapping("/cards")
     @ApiOperation("根据关键词获取卡片")
-    public Result<List<CardVO>> getCardsByKeyWord(@RequestParam String key_word)
+    public Result<List<CardVO>> getCardsByKeyWord(@RequestParam("key_word") String keyWord)
     {
-        log.info("User:{} get cards by key:{}", BaseContext.getCurrentId(), key_word);
-        List<Card> cards = cardService.getCardsByKeyWord(key_word);
+        log.info("User:{} get cards by key:{}", BaseContext.getCurrentId(), keyWord);
+        List<Card> cards = cardService.getCardsByKeyWord(keyWord);
         if(cards == null || cards.isEmpty()) return Result.success();
         List<CardVO> cardVOs = new ArrayList<>();
         for(Card c : cards)

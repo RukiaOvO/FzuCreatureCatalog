@@ -69,11 +69,11 @@ public class UserController
 
     @GetMapping("/follow")
     @ApiOperation("获取关注列表")
-    public Result<List<CardVO>> getFollowCard(@RequestParam int sort_rule)
+    public Result<List<CardVO>> getFollowCard(@RequestParam("sort_rule") int sortRule)
     {
         int userId = BaseContext.getCurrentId();
-        log.info("User:{} getFollowCard.", userId);
-        List<Card> cards = userService.getFollowCardsById(userId, sort_rule);
+        log.info("User:{} getFollowCard rule: {}", userId, sortRule);
+        List<Card> cards = userService.getFollowCardsById(userId, sortRule);
         if(cards == null || cards.isEmpty()) return Result.success();
         List<CardVO> cardVOs = new ArrayList<>();
         for(Card c : cards)

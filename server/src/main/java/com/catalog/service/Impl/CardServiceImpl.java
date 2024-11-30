@@ -91,4 +91,10 @@ public class CardServiceImpl implements CardService
         return cardMapper.getAcceptedCards();
     }
 
+    @Override
+    public List<Card> getUnAcceptedCard()
+    {
+        return cardMapper.getUnAcceptedCard();
+    }
+
 }
