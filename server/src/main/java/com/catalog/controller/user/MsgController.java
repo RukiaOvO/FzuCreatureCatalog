@@ -40,13 +40,17 @@ public class MsgController
     public Result<String> readOneMsg(@RequestParam int msg_id)
     {
         int userId = BaseContext.getCurrentId();
-        Integer msgId = userService.getMsgIdById(userId);
-        if(msgId == null)
+        List<Integer> msgIds = userService.getMsgIdsById(userId);
+        if(msgIds == null || msgIds.isEmpty())
         {
             return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
         }
-        msgService.updateMsgByIds(List.of(msgId));
-        return Result.success();
+        if(!msgIds.contains(msg_id))
+        {
+            return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
+        }
+        msgService.updateMsgByIds(List.of(msg_id));
+        return Result.success(MessageConstant.READ_SUCCESS);
     }
 
     @PutMapping("/read_all_msg")
