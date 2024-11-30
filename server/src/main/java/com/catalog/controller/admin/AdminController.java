@@ -64,7 +64,7 @@ public class AdminController
     @ApiOperation("显示主页卡片")
     public Result<List<CardVO>> showHomeCards()
     {
-        List<Card> cards = adminService.showHomeCards();
+        List<Card> cards = cardService.getUnAcceptedCard();
         if(cards == null || cards.isEmpty()) return Result.success();
         List<CardVO> cardVOs = new ArrayList<>();
         for(Card c : cards)
