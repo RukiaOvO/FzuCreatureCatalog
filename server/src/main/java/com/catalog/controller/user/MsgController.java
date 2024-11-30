@@ -41,11 +41,7 @@ public class MsgController
     {
         int userId = BaseContext.getCurrentId();
         List<Integer> msgIds = userService.getMsgIdsById(userId);
-        if(msgIds == null || msgIds.isEmpty())
-        {
-            return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
-        }
-        if(!msgIds.contains(msg_id))
+        if(msgIds == null || msgIds.isEmpty() || !msgIds.contains(msg_id))
         {
             return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
         }
@@ -71,22 +67,13 @@ public class MsgController
     @ApiOperation("根据msg_id删除消息")
     public Result<String> deleteMsgById(@RequestParam int msgId)
     {
-        boolean hasMsg = false;
         int userId = BaseContext.getCurrentId();
-        List<Msg> msgList = userService.getUserMsgById(userId);
-        for(Msg msg : msgList)
+        List<Integer> msgIds = userService.getMsgIdsById(userId);
+        if(msgIds == null || msgIds.isEmpty() || !msgIds.contains(msgId))
         {
-            if(msg.getId() == msgId)
-            {
-                hasMsg = true;
-                break;
-            }
+            return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
         }
-        if(hasMsg)
-        {
-            userService.deleteUserMsgByMsgId(msgId);
-            return Result.success();
-        }
-        return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
+        userService.deleteUserMsgByMsgId(msgId);
+        return Result.success();
     }
 }
