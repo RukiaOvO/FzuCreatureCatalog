@@ -176,8 +176,7 @@ public class UserServiceImpl implements UserService
     public void likeCardById(int userId, int cardId)
     {
           List<Integer> cardIds = userMapper.getLikeCardIdsById(userId);
-          if(cardIds == null || cardIds.isEmpty()) return;
-          if(cardIds.contains(cardId))
+          if(cardIds != null && cardIds.contains(cardId))
           {
               userMapper.dislikeCard(userId, cardId);
               cardMapper.disLike(cardId);
@@ -194,8 +193,7 @@ public class UserServiceImpl implements UserService
     public void followCardById(int userId, int cardId)
     {
         List<Integer> cardIds = userMapper.getFollowCardIdsById(userId);
-        if(cardIds == null || cardIds.isEmpty()) return;
-        if(cardIds.contains(cardId))
+        if(cardIds != null && cardIds.contains(cardId))
         {
             userMapper.unfollowCard(userId, cardId);
             cardMapper.unFollow(cardId);
