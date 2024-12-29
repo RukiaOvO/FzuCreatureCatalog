@@ -13,7 +13,7 @@ public interface CardMapper
     @Select("select card_id from user_follow_card where user_id = #{id}")
     List<Integer> getCardIdsByUserId(int id);
 
-    List<Card> getCardsByIds(List<Integer> ids);
+    List<Card> getCardsByIds(int ids);
 
     @Select("select * from card where status = 1")
     List<Card> getAcceptedCards();

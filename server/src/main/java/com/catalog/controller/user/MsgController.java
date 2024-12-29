@@ -13,8 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -45,7 +44,9 @@ public class MsgController
         {
             return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
         }
-        msgService.updateMsgByIds(List.of(msg_id));
+        List<Integer> ids = new ArrayList<>();
+        ids.add(msg_id);
+        msgService.updateMsgByIds(ids);
         return Result.success(MessageConstant.READ_SUCCESS);
     }
 
@@ -63,17 +64,17 @@ public class MsgController
         return Result.success();
     }
 
-    @DeleteMapping("delete_msg")
+    @DeleteMapping("/delete_msg")
     @ApiOperation("根据msg_id删除消息")
-    public Result<String> deleteMsgById(@RequestParam int msgId)
+    public Result<String> deleteMsgById(@RequestParam int msg_id)
     {
         int userId = BaseContext.getCurrentId();
         List<Integer> msgIds = userService.getMsgIdsById(userId);
-        if(msgIds == null || msgIds.isEmpty() || !msgIds.contains(msgId))
+        if(msgIds == null || msgIds.isEmpty() || !msgIds.contains(msg_id))
         {
             return Result.error(MessageConstant.MESSAGE_NOT_EXIST);
         }
-        userService.deleteUserMsgByMsgId(msgId);
+        userService.deleteUserMsgByMsgId(msg_id);
         return Result.success();
     }
 }

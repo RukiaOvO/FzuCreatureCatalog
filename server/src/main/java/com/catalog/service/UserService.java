@@ -47,4 +47,6 @@ public interface UserService
     boolean isFollowCard(Card card);
 
     boolean isLikeCard(Card card);
+
+    boolean deleteUserOwnCard(int cardId);
 }

@@ -1,25 +1,24 @@
 package com.catalog.controller.user;
 
+import com.catalog.constant.MessageConstant;
 import com.catalog.context.BaseContext;
 import com.catalog.dto.UserHomeCardDTO;
-import com.catalog.entity.Card;
-import com.catalog.entity.Img;
-import com.catalog.entity.Msg;
+import com.catalog.entity.*;
 import com.catalog.mapper.FollowMapper;
 import com.catalog.service.CardService;
 import com.catalog.service.ImgService;
+import com.catalog.service.PageService;
 import com.catalog.service.UserService;
 import com.catalog.dto.UserLoginDTO;
-import com.catalog.entity.User;
 import com.catalog.result.Result;
 import com.catalog.utils.FileUtil;
 import com.catalog.utils.MathUtil;
-import com.catalog.vo.CardVO;
-import com.catalog.vo.UserLoginVO;
-import com.catalog.vo.UserInfoVO;
+import com.catalog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.bridge.Message;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,6 +42,8 @@ public class UserController
     private ImgService imgService;
     @Autowired
     private CardService cardService;
+    @Autowired
+    private PageService pageService;
 
     @PostMapping("/login")
     @ApiOperation("微信登入")
@@ -122,5 +123,56 @@ public class UserController
         Img img = imgService.uploadImgToBed(imgFile);
         userService.updateUserInfo(nickname, img);
         return Result.success(img.getUrl());
+    }
+    @DeleteMapping("/deletecard")
+    @ApiOperation("删除自己的卡片")
+    public Result<String> deleteUserOwnCard(@RequestParam("card_id") int cardId)
+    {
+        Card card = cardService.getCardById(cardId);
+        if(card == null || !userService.deleteUserOwnCard(cardId))
+        {
+            return Result.error(MessageConstant.CARD_NOT_EXIST);
+        }
+        return Result.success(MessageConstant.DELETE_SUCCESS);
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("根据id获取单个官方图鉴")
+    public Result<PageVO> getOnePageById(@RequestParam("page_id") int pageId)
+    {
+        Page page = pageService.getOnePageById(pageId);
+        if(page == null)
+        {
+            return Result.error(MessageConstant.PAGE_NOT_EXIST);
+        }
+        PageVO pageVO = PageVO.builder()
+                .id(page.getId())
+                .description(page.getDescription())
+                .position(page.getPosition())
+                .imgUrl(page.getImgUrl())
+                .nickname(page.getNickname())
+                .content(page.getContent()).build();
+        return Result.success(pageVO);
+    }
+    @GetMapping("/pagelist")
+    @ApiOperation("获取官方图鉴列表")
+    public Result<PageListVO> getPageList(@RequestParam(value = "offset", defaultValue = "0") int offset, @RequestParam(value = "limit", defaultValue = "10") int limit)
+    {
+        List<Page> pages = pageService.getPages();
+        if(pages == null || pages.isEmpty()) return Result.success();
+        int count = pages.size();
+        List<PageThumbnailVO> pageVOs = new ArrayList<>();
+        for(Page p : pages)
+        {
+            PageThumbnailVO pageVO = PageThumbnailVO.builder()
+                    .id(p.getId())
+                    .nickname((p.getNickname()))
+                    .position(p.getPosition())
+                    .description(p.getDescription())
+                    .imgUrl(p.getImgUrl())
+                    .build();
+            pageVOs.add(pageVO);
+        }
+        return Result.success(new PageListVO(count, pageVOs));
     }
 }

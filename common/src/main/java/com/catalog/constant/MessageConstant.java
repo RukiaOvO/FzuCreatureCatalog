@@ -12,4 +12,6 @@ public class MessageConstant
     public static final String REVIEW_ACCEPT = "审核通过";
     public static final String CARD_NOT_EXIST = "卡片不存在";
     public static final String READ_SUCCESS = "阅读消息成功";
+    public static final String CARD_HAVE_ACCEPTED = "卡片已通过";
+    public static final String PAGE_NOT_EXIST = "图鉴页面不存在";
 }

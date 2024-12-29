@@ -1,6 +1,8 @@
 package com.catalog.mapper;
 
+import com.catalog.annotation.AutoFill;
 import com.catalog.entity.Msg;
+import com.catalog.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,8 +19,6 @@ public interface MsgMapper
 
     void updateMsgByIds(List<Integer> ids);
 
+    @AutoFill(OperationType.INSERT)
     int insert(Msg msg);
-
-    @Insert("insert into user_msg(user_id, msg_id, create_time, update_time) values (#{userId}, #{msgId}, NOW(), NOW())")
-    void sendMsg(int userId, int msgId);
 }

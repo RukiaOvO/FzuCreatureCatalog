@@ -230,4 +230,21 @@ public class UserServiceImpl implements UserService
     {
         return likeMapper.getLikeCard(BaseContext.getCurrentId(), c.getId()) != null;
     }
+
+    @Transactional
+    @Override
+    public boolean deleteUserOwnCard(int cardId)
+    {
+        int userId = BaseContext.getCurrentId();
+        List<Integer> cardIds = userMapper.getUploadCardIdsById(userId);
+        if(cardIds.contains(cardId))
+        {
+            userMapper.deleteUserUploadCard(userId, cardId);
+            userMapper.deleteFollowCardById(cardId);
+            userMapper.deleteLikeCardById(cardId);
+            cardMapper.deleteCardById(cardId);
+            return true;
+        }
+        return false;
+    }
 }

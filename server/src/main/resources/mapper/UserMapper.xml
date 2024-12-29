@@ -9,4 +9,7 @@
         insert into user_img(user_id, img_id, create_time, update_time) values
     (#{userId}, #{imgId}, NOW(), NOW())
     </insert>
+    <select id="getUploadCardIdsById" resultType="java.lang.Integer">
+        select card_id from user_upload_card where user_id = #{userId}
+    </select>
 </mapper>

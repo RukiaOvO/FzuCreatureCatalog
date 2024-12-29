@@ -42,6 +42,9 @@ public class ImgServiceImpl implements ImgService
     @Autowired
     private UserMapper userMapper;
 
+    public static String imgToken;
+
+
     @Override
     public String getImgBedToken()
     {
@@ -79,7 +82,7 @@ public class ImgServiceImpl implements ImgService
     {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.setBearerAuth(getImgBedToken());
+        headers.setBearerAuth(imgToken);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", new FileSystemResource(FileUtil.MultipartFileToFile(file)));

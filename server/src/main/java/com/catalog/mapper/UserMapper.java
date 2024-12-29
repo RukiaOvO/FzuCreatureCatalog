@@ -1,6 +1,7 @@
 package com.catalog.mapper;
 
 import com.catalog.annotation.AutoFill;
+import com.catalog.entity.Card;
 import com.catalog.entity.User;
 import com.catalog.enumeration.OperationType;
 import org.apache.ibatis.annotations.*;
@@ -53,4 +54,21 @@ public interface UserMapper
 
     @Select("select user_id from user_upload_card where card_id = #{cardId}")
     int getUserByCardId(int cardId);
+
+    @Insert("insert into user_msg(user_id, msg_id, create_time, update_time) values (#{userId}, #{msgId}, NOW(), NOW())")
+    void addUserMsg(int userId, int msgId);
+
+    @Delete("delete from user_upload_card where user_id = #{userId} and card_id = #{cardId}")
+    void deleteUserUploadCard(int userId, int cardId);
+
+    @Delete("delete from user_follow_card where card_id = #{cardId}")
+    void deleteFollowCardById(int cardId);
+
+    @Delete("delete from user_like_card where card_id = #{cardId}")
+    void deleteLikeCardById(int cardId);
+
+    List<Integer> getUploadCardIdsById(int userId);
+
+    @Delete("delete from user_upload_card where card_id = #{cardId}")
+    void deleteCardById(int cardId);
 }

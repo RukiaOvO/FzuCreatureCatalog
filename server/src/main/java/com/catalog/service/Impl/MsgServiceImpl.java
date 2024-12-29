@@ -37,7 +37,7 @@ public class MsgServiceImpl implements MsgService
                 .content(MessageConstant.REVIEW_FAILED)
                 .build();
         msgMapper.insert(deleteMsg);
-        msgMapper.sendMsg(userId, deleteMsg.getId());
+        userMapper.addUserMsg(userId, deleteMsg.getId());
     }
 
     @Transactional
@@ -49,6 +49,6 @@ public class MsgServiceImpl implements MsgService
                 .content(MessageConstant.REVIEW_ACCEPT)
                 .build();
         msgMapper.insert(deleteMsg);
-        msgMapper.sendMsg(userId, deleteMsg.getId());
+        userMapper.addUserMsg(userId, deleteMsg.getId());
     }
 }
