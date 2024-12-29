@@ -90,6 +90,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport
     {
         log.info("开始映射静态资源...");
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     protected void extendMessageConverters(List<HttpMessageConverter<?>> converters)
